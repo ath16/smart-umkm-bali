@@ -15,6 +15,17 @@ class Store extends Model
 {
     use HasFactory, SoftDeletes, Searchable;
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($store) {
+            if (empty($store->slug)) {
+                $store->slug = \Illuminate\Support\Str::slug($store->name);
+            }
+        });
+    }
+
     protected $fillable = [
         'user_id',
         'name',
