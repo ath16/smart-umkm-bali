@@ -11,7 +11,7 @@ class StoreController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Store::with(['user', 'category']);
+        $query = Store::with(['owner', 'category']);
 
         if ($request->filled('status')) {
             if ($request->status === 'suspended') {

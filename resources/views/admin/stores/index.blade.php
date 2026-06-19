@@ -33,8 +33,8 @@
                                 <div class="text-xs text-on-surface-variant">{{ $store->category?->name ?? '-' }}</div>
                             </td>
                             <td class="p-4 text-body-md text-text-primary">
-                                {{ $store->user?->name ?? 'Unknown' }}<br>
-                                <span class="text-xs text-on-surface-variant">{{ $store->user?->email }}</span>
+                                {{ $store->owner?->name ?? 'Unknown' }}<br>
+                                <span class="text-xs text-on-surface-variant">{{ $store->owner?->email }}</span>
                             </td>
                             <td class="p-4">
                                 @if($store->isSuspended())

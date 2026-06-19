@@ -20,7 +20,7 @@ test.describe('Bug Regression Tests', () => {
       const qtyInput = page.locator('input[name="quantity"]:not([type="hidden"])');
       if (await qtyInput.isVisible()) {
         await qtyInput.fill('99999');
-        await page.click('button:has-text("Tambah ke Keranjang")');
+        await page.click('form:not([action$="logout"]) button[type="submit"]');
         
         // Wait for potential toast or just verify we don't go to checkout
         await expect(page).toHaveURL(/products|store/);
@@ -33,7 +33,7 @@ test.describe('Bug Regression Tests', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'admin@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
     await expect(page).toHaveURL(/\/admin\/dashboard/);
   });
@@ -50,7 +50,7 @@ test.describe('Bug Regression Tests', () => {
     await page.fill('input[name="email"]', uniqueEmail);
     await page.fill('input[name="password"]', 'password123');
     await page.fill('input[name="password_confirmation"]', 'password123');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
     await expect(page).toHaveURL(/\/stores\/create/);
   });
@@ -60,8 +60,8 @@ test.describe('Bug Regression Tests', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/products/create');
     
     await page.fill('input[name="name"]', 'Invalid Product');
@@ -79,9 +79,9 @@ test.describe('Bug Regression Tests', () => {
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password123');
     await page.fill('input[name="password_confirmation"]', 'password123');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
-    const errorMsg = page.locator('text="telah digunakan"').or(page.locator('text="already been taken"')).first();
+    const errorMsg = page.getByText('telah digunakan').or(page.getByText('already been taken')).first();
     await expect(errorMsg).toBeVisible();
   });
 

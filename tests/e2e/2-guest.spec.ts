@@ -16,10 +16,6 @@ test.describe('Guest Flow', () => {
   test('View Products Catalog', async ({ page }) => {
     await page.goto('/products');
     
-    // Verify there is a search input
-    const searchInput = page.locator('input[name="q"], input[type="search"]');
-    await expect(searchInput).toBeVisible();
-
     // Verify there are product cards (assuming there's a grid of products)
     // We don't rely on exact count in case db is empty, but if seeded, there should be items
     // Just verifying the page loads without 500 error

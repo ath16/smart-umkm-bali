@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ($user->isCashier()) {
-            return redirect()->intended(route('dashboard.transactions.create', absolute: false));
+            return redirect()->intended(route('transactions.create', absolute: false));
         }
 
         if ($user->isCustomer()) {

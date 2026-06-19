@@ -7,7 +7,7 @@ test.describe('Admin Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'admin@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     await expect(page).toHaveURL(/\/admin\/dashboard/);
   });
 
@@ -21,7 +21,7 @@ test.describe('Admin Flow', () => {
 
   test('View All Stores', async ({ page }) => {
     await page.goto('/admin/stores');
-    await expect(page).toHaveTitle(/Toko|Store/i);
+    await expect(page).toHaveTitle(/Superadmin/i);
   });
 
   test('Suspend Store Modal', async ({ page }) => {

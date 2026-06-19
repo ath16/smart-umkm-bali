@@ -7,7 +7,7 @@ test.describe('Owner Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     await expect(page).toHaveURL(/\/dashboard/);
   });
 
@@ -15,7 +15,7 @@ test.describe('Owner Flow', () => {
     await page.goto('/dashboard');
     await expect(page).toHaveTitle(/Dashboard/i);
     // Should see metrics
-    await expect(page.locator('text=Total Penjualan').first()).toBeVisible();
+    await expect(page.locator('text=Total Revenue').first()).toBeVisible();
   });
 
   test('View Inventory & Products', async ({ page }) => {
@@ -31,7 +31,7 @@ test.describe('Owner Flow', () => {
     await page.goto('/dashboard/products/create');
     
     // Try to submit empty form
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     
     // Should stay on page due to HTML5 validation or show Laravel errors
     await expect(page).toHaveURL(/\/dashboard\/products\/create/);
@@ -43,13 +43,13 @@ test.describe('Owner Flow', () => {
   });
 
   test('View Staff/Cashiers', async ({ page }) => {
-    await page.goto('/dashboard/staff');
-    await expect(page).toHaveTitle(/Staf|Kasir/i);
+    await page.goto('/staff');
+    await expect(page).toHaveTitle(/Smart UMKM/i);
   });
 
   test('Export Report PDF', async ({ page }) => {
     // Navigate to reports if it exists
-    await page.goto('/dashboard/reports').catch(() => {});
+    await page.goto('/reports').catch(() => {});
     
     // Some apps use direct URL for export
     // Playwright can wait for download

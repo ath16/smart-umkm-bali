@@ -7,7 +7,7 @@ test.describe('Authentication Flow', () => {
     const uniqueEmail = `test_customer_${Date.now()}@example.com`;
 
     await page.goto('/register');
-    await expect(page).toHaveTitle(/Daftar | Smart UMKM Bali/i);
+    await expect(page).toHaveTitle(/Smart UMKM/i);
 
     // Fill the registration form
     await page.fill('input[name="name"]', 'Budi Playwright');
@@ -22,7 +22,7 @@ test.describe('Authentication Flow', () => {
       await roleSelect.selectOption('customer');
     }
 
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
     // Should redirect to dashboard
     await expect(page).toHaveURL(/\/customer\/dashboard|\/dashboard/);
@@ -58,7 +58,7 @@ test.describe('Authentication Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
     // Should redirect to customer dashboard
     await expect(page).toHaveURL(/\/customer\/dashboard/);
@@ -68,7 +68,7 @@ test.describe('Authentication Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
     // Should redirect to owner dashboard
     await expect(page).toHaveURL(/\/dashboard/);

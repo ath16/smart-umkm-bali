@@ -8,9 +8,10 @@ test.describe('Role Permission & Staff Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
 
     // 2. Go to Staff Management
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/staff');
     const addBtn = page.locator('button:has-text("Tambah Staf"), a:has-text("Tambah Kasir")');
     if (await addBtn.isVisible()) {
@@ -22,10 +23,11 @@ test.describe('Role Permission & Staff Flow', () => {
       await page.fill('input[name="email"]', newEmail);
       await page.fill('input[name="password"]', 'password123');
       await page.fill('input[name="password_confirmation"]', 'password123');
-      await page.click('button[type="submit"]');
+      await page.click('form:not([action$="logout"]) button[type="submit"]');
       
       // 4. Logout Owner
-      await page.goto('/dashboard');
+      await page.waitForTimeout(1500);
+    await page.goto('/dashboard');
       await page.evaluate(() => {
         const form = document.createElement('form');
         form.method = 'POST';
@@ -46,7 +48,7 @@ test.describe('Role Permission & Staff Flow', () => {
       await page.goto('/login');
       await page.fill('input[name="email"]', newEmail);
       await page.fill('input[name="password"]', 'password123');
-      await page.click('button[type="submit"]');
+      await page.click('form:not([action$="logout"]) button[type="submit"]');
       
       // 6. Should redirect to dashboard or POS
       await expect(page).toHaveURL(/\/dashboard|\/cashier\/pos/);
@@ -68,8 +70,8 @@ test.describe('Role Permission & Staff Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'admin@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/admin/stores');
     const suspendBtn = page.locator('form[action*="suspend"] button').first();
     if (await suspendBtn.isVisible()) {

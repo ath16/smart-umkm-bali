@@ -14,10 +14,11 @@ test.describe('Critical Business Flow', () => {
       await page.goto('/login');
       await page.fill('input[name="email"]', 'customer@smart-umkm.test');
       await page.fill('input[name="password"]', 'password');
-      await page.click('button[type="submit"]');
+      await page.click('form:not([action$="logout"]) button[type="submit"]');
 
       // Go to Checkout
-      await page.goto('/checkout');
+      await page.waitForTimeout(1500);
+    await page.goto('/checkout');
       await expect(page).toHaveTitle(/Checkout/i);
       
       // Choose address
@@ -69,8 +70,8 @@ test.describe('Critical Business Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/cart');
     const qtyInput = page.locator('input[name="quantity"], input[type="number"]').first();
     if (await qtyInput.isVisible()) {
@@ -89,8 +90,8 @@ test.describe('Critical Business Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/cart');
     const removeBtn = page.locator('button:has-text("Hapus"), button.remove-item, a.text-red-500').first();
     if (await removeBtn.isVisible()) {
@@ -105,8 +106,8 @@ test.describe('Critical Business Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/orders');
     const orderLink = page.locator('a[href*="/dashboard/orders/"]').first();
     if (await orderLink.isVisible()) {
@@ -121,8 +122,8 @@ test.describe('Critical Business Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/orders');
     const orderLink = page.locator('a[href*="/dashboard/orders/"]').first();
     if (await orderLink.isVisible()) {
@@ -141,8 +142,8 @@ test.describe('Critical Business Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/customer/orders');
     const orderLink = page.locator('a[href*="/customer/orders/"]').first();
     if (await orderLink.isVisible()) {
@@ -157,8 +158,8 @@ test.describe('Critical Business Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'cashier@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/transactions/create').catch(() => page.goto('/cashier/pos'));
     const firstProduct = page.locator('button.add-to-cart-pos').first();
     if (await firstProduct.isVisible()) {
@@ -176,10 +177,11 @@ test.describe('Critical Business Flow', () => {
 
   // 10. [Store] Registration Flow
   test('Store Registration Flow', async ({ page }) => {
-    const uniqueEmail = `new_owner_${Date.now()}@example.com`;
+    const uniqueEmail = `storeowner_${Date.now()}@smart-umkm.test`;
     
     // Register
     await page.goto('/register');
+    await page.locator('input[value="owner"]').check();
     await page.fill('input[name="name"]', 'New Owner');
     await page.fill('input[name="email"]', uniqueEmail);
     await page.fill('input[name="password"]', 'password123');
@@ -188,7 +190,7 @@ test.describe('Critical Business Flow', () => {
     const roleSelect = page.locator('select[name="role"]');
     if (await roleSelect.isVisible()) await roleSelect.selectOption('owner');
     
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     
     // Expect to be redirected to store creation
     await expect(page).toHaveURL(/\/stores\/create/);
@@ -196,7 +198,7 @@ test.describe('Critical Business Flow', () => {
     // Fill Store Details
     await page.fill('input[name="name"]', 'Toko Baru Makmur');
     await page.fill('textarea[name="address"]', 'Jalan Raya Denpasar No 1');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     
     // Expect to land on dashboard
     await expect(page).toHaveURL(/\/dashboard/);

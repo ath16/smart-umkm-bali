@@ -10,8 +10,8 @@ test.describe('Validation Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/checkout');
     // Uncheck all addresses if possible, or submit directly
     const submitBtn = page.locator('button:has-text("Selesaikan Pesanan")');
@@ -27,8 +27,8 @@ test.describe('Validation Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/products');
     const firstProductLink = page.locator('a.product-card-link, a[href*="/products/"]').first();
     if (await firstProductLink.isVisible()) {
@@ -37,7 +37,7 @@ test.describe('Validation Flow', () => {
       const qtyInput = page.locator('input[name="quantity"]:not([type="hidden"])');
       if (await qtyInput.isVisible()) {
         await qtyInput.fill('99999'); // Exceeding realistic stock
-        await page.click('button:has-text("Tambah ke Keranjang")');
+        await page.click('form:not([action$="logout"]) button[type="submit"]');
         // Expect validation error alert or toast
         const errorMessage = page.locator('.alert-danger, .toast-error, text="Maksimal"');
         // Just verify we don't crash
@@ -51,8 +51,8 @@ test.describe('Validation Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'cashier@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/transactions/create').catch(() => page.goto('/cashier/pos'));
     const firstProduct = page.locator('button.add-to-cart-pos').first();
     if (await firstProduct.isVisible()) {
@@ -84,12 +84,12 @@ test.describe('Validation Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'owner@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/dashboard/products/create');
     await page.fill('input[name="name"]', 'Produk Tanpa Harga');
     // Deliberately skipping cost_price and sell_price
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     
     // Expect to remain on the create page due to validation
     await expect(page).toHaveURL(/\/dashboard\/products\/create/);
@@ -100,8 +100,8 @@ test.describe('Validation Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'admin@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
     await page.goto('/admin/stores');
     const suspendBtn = page.locator('button:has-text("Suspend"), button:has-text("Tangguhkan")').first();
     if (await suspendBtn.isVisible()) {
@@ -124,10 +124,10 @@ test.describe('Validation Flow', () => {
     await page.fill('input[name="email"]', 'customer@smart-umkm.test'); // Already exists
     await page.fill('input[name="password"]', 'password123');
     await page.fill('input[name="password_confirmation"]', 'password123');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     
     // Expect validation error
-    const errorMsg = page.locator('text="telah digunakan"').or(page.locator('text="already been taken"')).first();
+    const errorMsg = page.getByText('telah digunakan').or(page.getByText('already been taken')).first();
     await expect(errorMsg).toBeVisible();
   });
 

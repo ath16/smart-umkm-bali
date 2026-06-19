@@ -18,7 +18,7 @@ class StoreController extends Controller
     public function create(): View
     {
         $user = auth()->user();
-        abort_if($user->isOwner() || $user->isCashier(), 403, 'Anda sudah terdaftar di sebuah toko.');
+        abort_if($user->isCashier() || $user->currentStore(), 403, 'Anda sudah terdaftar di sebuah toko.');
 
         return view('stores.create');
     }
@@ -29,7 +29,7 @@ class StoreController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $user = auth()->user();
-        abort_if($user->isOwner() || $user->isCashier(), 403, 'Anda sudah terdaftar di sebuah toko.');
+        abort_if($user->isCashier() || $user->currentStore(), 403, 'Anda sudah terdaftar di sebuah toko.');
 
         $request->validate([
             'name' => 'required|string|max:255',

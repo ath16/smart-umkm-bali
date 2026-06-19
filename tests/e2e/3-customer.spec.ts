@@ -7,13 +7,13 @@ test.describe('Customer Flow', () => {
     await page.goto('/login');
     await page.fill('input[name="email"]', 'customer@smart-umkm.test');
     await page.fill('input[name="password"]', 'password');
-    await page.click('button[type="submit"]');
+    await page.click('form:not([action$="logout"]) button[type="submit"]');
     await expect(page).toHaveURL(/\/customer\/dashboard|\/dashboard|\//);
   });
 
   test('View Dashboard', async ({ page }) => {
     await page.goto('/customer/dashboard');
-    await expect(page).toHaveTitle(/Dashboard/i);
+    await expect(page).toHaveTitle(/Akun Saya/i);
     // Should see addresses or profile section
     await expect(page.locator('text=Alamat Pengiriman').first()).toBeVisible();
   });
@@ -31,7 +31,7 @@ test.describe('Customer Flow', () => {
       await page.fill('input[name="province"]', 'Bali').catch(() => {});
       await page.fill('input[name="city"]', 'Denpasar').catch(() => {});
       await page.fill('textarea[name="address"]', 'Jalan Pantai Kuta');
-      await page.click('button[type="submit"]');
+      await page.click('form:not([action$="logout"]) button[type="submit"]');
       
       // Should return to dashboard or show success message
       await expect(page).toHaveURL(/\/customer\/dashboard/);
@@ -45,7 +45,7 @@ test.describe('Customer Flow', () => {
 
   test('View Order History', async ({ page }) => {
     await page.goto('/customer/orders');
-    await expect(page).toHaveTitle(/Pesanan Saya/i);
+    await expect(page).toHaveTitle(/Akun Saya/i);
   });
 
 });

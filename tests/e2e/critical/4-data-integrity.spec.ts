@@ -52,9 +52,9 @@ test.describe('Data Integrity Flow', () => {
       await page.goto('/login');
       await page.fill('input[name="email"]', 'customer@smart-umkm.test');
       await page.fill('input[name="password"]', 'password');
-      await page.click('button[type="submit"]');
-
-      await page.goto('/products');
+      await page.click('form:not([action$="logout"]) button[type="submit"]');
+    await page.waitForTimeout(1500);
+    await page.goto('/products');
       const addBtn = page.locator('button.add-to-cart-btn').first();
       if (await addBtn.isVisible()) {
         await addBtn.click();
