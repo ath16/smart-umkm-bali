@@ -126,7 +126,7 @@
                                 <button type="button" @click="qty = Math.max(1, qty - 1)" class="w-10 h-10 flex items-center justify-center text-basalt hover:bg-surface transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"/></svg>
                                 </button>
-                                <input type="number" name="quantity" x-model="qty" min="1" max="{{ $product->stock }}" class="w-12 text-center border-none focus:ring-0 text-body-md font-semibold bg-transparent" readonly>
+                                <input type="number" name="quantity" x-model="qty" min="1" max="{{ $product->stock }}" class="w-12 text-center border-none focus:ring-0 text-body-md font-semibold bg-transparent">
                                 <button type="button" @click="qty = Math.min({{ $product->stock }}, qty + 1)" class="w-10 h-10 flex items-center justify-center text-basalt hover:bg-surface transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                                 </button>

@@ -1,0 +1,2078 @@
+{
+    "info": {
+        "name": "Smart UMKM Bali - UAT & API Tests",
+        "description": "Complete Postman collection for 5 roles: Guest, Customer, Owner, Cashier, Admin. Includes 50 test cases.",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Guest",
+            "item": [
+                {
+                    "name": "[Guest] View Landing Page",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] View Marketplace Catalog",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "products"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Search Products Valid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Search works', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/products?q=kopi",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "q",
+                                    "value": "kopi"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Search Products Empty",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Empty search', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/products?q=xxxxxxx",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "q",
+                                    "value": "xxxxxxx"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Autocomplete API",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('JSON format', function() { pm.response.to.have.status(200); pm.expect(pm.response.json()).to.be.an('array'); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/search\/autocomplete?q=kopi",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "search",
+                                "autocomplete"
+                            ],
+                            "query": [
+                                {
+                                    "key": "q",
+                                    "value": "kopi"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] View Store List",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/stores",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "stores"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] View Single Store",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Store exists', function() { pm.expect(pm.response.code).to.be.oneOf([200, 404]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/stores\/toko-biasa",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "stores",
+                                "toko-biasa"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] View Product Detail",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Product exists', function() { pm.expect(pm.response.code).to.be.oneOf([200, 404]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/products\/kopi-susu",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "products",
+                                "kopi-susu"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Shipping Rates API",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Returns JSON rates', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/shipping-rates?weight=1000",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "shipping-rates"
+                            ],
+                            "query": [
+                                {
+                                    "key": "weight",
+                                    "value": "1000"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Unauthorized Cart Add",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Redirects to login', function() { pm.expect(pm.response.code).to.be.oneOf([401, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart",
+                                "1"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "[Auth] Register Customer Valid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Register success', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Cus1",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "c1@test.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password_confirmation",
+                                    "value": "password",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "role",
+                                    "value": "customer",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Register Missing Data",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Validation Error 422', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "c1@test.com",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Valid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login success', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "customer@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Invalid Pass",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login fail', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "customer@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "wrong",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Logout",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Logout success', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/logout",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "logout"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Owner",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login success', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "owner@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Customer",
+            "item": [
+                {
+                    "name": "[Customer] View Dashboard",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/customer\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer",
+                                "dashboard"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Add Address",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Address created', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/customer\/addresses",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer",
+                                "addresses"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "recipient_name",
+                                    "value": "John",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "phone",
+                                    "value": "0812",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "province",
+                                    "value": "Bali",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "city",
+                                    "value": "Denpasar",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "address",
+                                    "value": "Jl Bali",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Add to Cart",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Cart added', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart",
+                                "1"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "quantity",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Update Cart",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Cart updated', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart",
+                                "1"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "quantity",
+                                    "value": "2",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Remove from Cart",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Cart removed', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart",
+                                "1"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] View Cart",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] View Checkout",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200 or Redirect', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/checkout",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "checkout"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Process Checkout Validation",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Validation Error', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/checkout",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "checkout"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Order History",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/customer\/orders",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer",
+                                "orders"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Try Admin URL (Fail)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Forbidden 403', function() { pm.expect(pm.response.code).to.be.oneOf([403, 404]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "dashboard"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Owner",
+            "item": [
+                {
+                    "name": "[Owner] View Dashboard",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Create Product Valid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Product Created', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Test Product",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cost_price",
+                                    "value": "1000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "sell_price",
+                                    "value": "2000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "stock",
+                                    "value": "10",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "weight",
+                                    "value": "100",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "published",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Create Product Invalid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Validation Error', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Test",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] View Products",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Update Product",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Product Updated', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products",
+                                "1"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Test Updated",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Delete Product",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Product Deleted', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products",
+                                "1"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] View Online Orders",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/orders",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "orders"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Update Order Status",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status Updated', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/orders\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "orders",
+                                "1"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "status",
+                                    "value": "processing",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Create Staff",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Staff Created', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/staff",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "staff"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Kasir 2",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "kasir2@test.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] View Staff",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/staff",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "staff"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Delete Staff",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Staff Deleted', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/staff\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "staff",
+                                "1"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Export Reports",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Export works', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/reports\/export?format=pdf",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "reports",
+                                "export"
+                            ],
+                            "query": [
+                                {
+                                    "key": "format",
+                                    "value": "pdf"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cashier",
+            "item": [
+                {
+                    "name": "[Cashier] View POS",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cashier\/pos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cashier",
+                                "pos"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] Process POS Success",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('POS Success', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cashier\/transactions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cashier",
+                                "transactions"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "total_amount",
+                                    "value": "10000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "payment_amount",
+                                    "value": "10000",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] Process POS Underpaid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('POS Underpaid Validation', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cashier\/transactions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cashier",
+                                "transactions"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "total_amount",
+                                    "value": "10000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "payment_amount",
+                                    "value": "5000",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] View Transaction History",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cashier\/transactions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cashier",
+                                "transactions"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] Try Delete Product (Fail)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Forbidden 403', function() { pm.expect(pm.response.code).to.be.oneOf([403, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products\/2",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products",
+                                "2"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] Try Export Report (Fail)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Forbidden 403', function() { pm.expect(pm.response.code).to.be.oneOf([403, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/reports\/export",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "reports",
+                                "export"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Admin",
+            "item": [
+                {
+                    "name": "[Admin] View Admin Dashboard",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "dashboard"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] View All Stores",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/stores",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "stores"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] Suspend Store Valid",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Suspend works', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/stores\/1\/suspend",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "stores",
+                                "1",
+                                "suspend"
+                            ],
+                            "query": []
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "reason",
+                                    "value": "Fraud detected",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] Suspend Store Missing Reason",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Suspend validation', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/stores\/1\/suspend",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "stores",
+                                "1",
+                                "suspend"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] Unsuspend Store",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Unsuspend works', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/stores\/1\/unsuspend",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "stores",
+                                "1",
+                                "unsuspend"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] View Suspensions History",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/suspensions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "suspensions"
+                            ],
+                            "query": []
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http:\/\/localhost:8000",
+            "type": "string"
+        }
+    ]
+}

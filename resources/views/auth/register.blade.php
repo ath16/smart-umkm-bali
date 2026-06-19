@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-slot:title>Daftar</x-slot:title>
     <div class="mb-6">
         <h2 class="font-display text-headline-md text-primary-dark">Daftar Akun</h2>
         <p class="text-body-sm text-on-surface-variant mt-1">Buat akun untuk mulai menjelajahi produk UMKM lokal</p>
@@ -12,6 +13,22 @@
             <x-input-label for="name" :value="__('Nama Lengkap')" />
             <x-text-input id="name" class="block mt-1.5 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Nama lengkap Anda" />
             <x-input-error :messages="$errors->get('name')" class="mt-1.5" />
+        </div>
+
+        <!-- Role Selection -->
+        <div>
+            <x-input-label :value="__('Mendaftar sebagai')" />
+            <div class="flex gap-4 mt-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="role" value="customer" class="text-primary focus:ring-primary h-4 w-4" {{ old('role', 'customer') === 'customer' ? 'checked' : '' }}>
+                    <span class="text-body-sm text-on-surface">Pelanggan</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="role" value="owner" class="text-primary focus:ring-primary h-4 w-4" {{ old('role') === 'owner' ? 'checked' : '' }}>
+                    <span class="text-body-sm text-on-surface">Pemilik Usaha (UMKM)</span>
+                </label>
+            </div>
+            <x-input-error :messages="$errors->get('role')" class="mt-1.5" />
         </div>
 
         <!-- Email Address -->

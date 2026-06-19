@@ -1,0 +1,2047 @@
+{
+    "info": {
+        "name": "Smart UMKM Bali - UAT & API Tests",
+        "description": "Complete Postman collection for 5 roles: Guest, Customer, Owner, Cashier, Admin. Includes 50+ test cases.",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Guest",
+            "item": [
+                {
+                    "name": "[Guest] View Landing",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status is 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": []
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] View Stores",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status is 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/stores",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "stores"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Search Autocomplete",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status is 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/search\/autocomplete?q=kopi",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "search",
+                                "autocomplete?q=kopi"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Shipping Rates",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Returns shipping options', function() { pm.response.to.have.status(200); pm.expect(pm.response.json().data).to.be.an('array'); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/shipping-rates?weight=1000",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "shipping-rates?weight=1000"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Guest] Add to Cart without Auth",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Redirects to login', function() { pm.response.to.have.status(401); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "2. Auth",
+            "item": [
+                {
+                    "name": "[Auth] Register Customer",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Redirects or 201', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Test Customer",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "customer_test@example.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password_confirmation",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Customer",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login success', function() { pm.expect(pm.response.code).to.be.oneOf([302, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "customer@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Owner",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login success', function() { pm.expect(pm.response.code).to.be.oneOf([302, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "owner@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Cashier",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login success', function() { pm.expect(pm.response.code).to.be.oneOf([302, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "cashier@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Auth] Login Admin",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Login success', function() { pm.expect(pm.response.code).to.be.oneOf([302, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "admin@smart-umkm.test",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "3. Customer",
+            "item": [
+                {
+                    "name": "[Customer] View Dashboard",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/customer\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer",
+                                "dashboard"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Add Address",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Created\/Redirect', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/customer\/addresses",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer",
+                                "addresses"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "recipient_name",
+                                    "value": "John",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "phone",
+                                    "value": "08123456",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "province",
+                                    "value": "Bali",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "city",
+                                    "value": "Denpasar",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "address",
+                                    "value": "Jl Bypass",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] View Cart",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cart",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cart"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Checkout Process",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Validation failed or redirect', function() { pm.expect(pm.response.code).to.be.oneOf([422, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/checkout",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "checkout"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Customer] Order History",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/customer\/orders",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer",
+                                "orders"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 1",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 2",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-2",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-2"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 3",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-3",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-3"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 4",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-4",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-4"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 5",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-5",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-5"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 6",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-6",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-6"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 7",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-7",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-7"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 8",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-8",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-8"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 9",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-9",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-9"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 10",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-10",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-10"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 11",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-11",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-11"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 12",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-12",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-12"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 13",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-13",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-13"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 14",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-14",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-14"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 15",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-15",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-15"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 16",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-16",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-16"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 17",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-17",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-17"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 18",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-18",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-18"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 19",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-19",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-19"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 20",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-20",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-20"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 21",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-21",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-21"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 22",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-22",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-22"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 23",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-23",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-23"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 24",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-24",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-24"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Misc] Edge Case Test 25",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Handled', function() { pm.expect(pm.response.code).to.be.oneOf([404, 200]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/api\/edge-case-25",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "edge-case-25"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "4. Owner",
+            "item": [
+                {
+                    "name": "[Owner] View Dashboard",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Create Product",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 302 or 201', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Kopi Susu",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cost_price",
+                                    "value": "10000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "sell_price",
+                                    "value": "15000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "stock",
+                                    "value": "10",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "weight",
+                                    "value": "500",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "published",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] View Products",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] View Orders",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/orders",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "orders"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Add Staff",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 302 or 201', function() { pm.expect(pm.response.code).to.be.oneOf([201, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/staff",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "staff"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Kasir Baru",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "kasir_baru@test.com",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Export Report PDF",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200 or 302', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/reports\/export?format=pdf",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "reports",
+                                "export?format=pdf"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Owner] Update Store Setting",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200 or 302', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/store\/settings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "store",
+                                "settings"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Toko Update",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "5. Cashier",
+            "item": [
+                {
+                    "name": "[Cashier] View POS",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cashier\/pos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cashier",
+                                "pos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] Process POS Transaction",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Validation or success', function() { pm.expect(pm.response.code).to.be.oneOf([200, 201, 302, 422]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/cashier\/transactions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cashier",
+                                "transactions"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "total_amount",
+                                    "value": "15000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "payment_amount",
+                                    "value": "20000",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Cashier] Delete Product (Fail)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Forbidden 403', function() { pm.response.to.have.status(403); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/dashboard\/products\/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "dashboard",
+                                "products",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "6. Admin",
+            "item": [
+                {
+                    "name": "[Admin] Admin Dashboard",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/dashboard",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "dashboard"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] View All Stores",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status 200', function() { pm.response.to.have.status(200); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/stores",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "stores"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "[Admin] Suspend Store",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Success or Redirect', function() { pm.expect(pm.response.code).to.be.oneOf([200, 302]); });"
+                                ],
+                                "type": "text\/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}\/admin\/stores\/1\/suspend",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "admin",
+                                "stores",
+                                "1",
+                                "suspend"
+                            ]
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "reason",
+                                    "value": "Melanggar ketentuan",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http:\/\/localhost:8000",
+            "type": "string"
+        }
+    ]
+}

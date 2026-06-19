@@ -45,6 +45,7 @@ class StoreOrderController extends Controller
     public function show(Order $order): View
     {
         $this->authorize('view', $order);
+        abort_unless($order->store_id === $this->getStoreId(), 403, 'Akses ditolak.');
 
         $order->load(['orderItems.product', 'orderAddress', 'user', 'paymentTransaction']);
 
@@ -57,6 +58,7 @@ class StoreOrderController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $this->authorize('update', $order);
+        abort_unless($order->store_id === $this->getStoreId(), 403, 'Akses ditolak.');
 
         $request->validate([
             'status' => 'required|in:processing,shipped,cancelled',

@@ -35,20 +35,27 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'in:customer,owner'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'customer',
+            'role' => $request->role,
         ]);
 
-        $user->customerProfile()->create();
+        if ($user->isCustomer()) {
+            $user->customerProfile()->create();
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        if ($user->isOwner()) {
+            return redirect()->route('stores.create');
+        }
 
         return redirect()->route('customer.dashboard');
     }

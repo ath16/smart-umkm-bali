@@ -29,6 +29,7 @@ class CustomerOrderController extends Controller
     public function show(Order $order)
     {
         $this->authorize('view', $order);
+        abort_unless($order->user_id === Auth::id(), 403, 'Akses ditolak.');
 
         $order->load(['store', 'items.product', 'address', 'paymentTransaction']);
 
@@ -41,6 +42,7 @@ class CustomerOrderController extends Controller
     public function cancel(Order $order)
     {
         $this->authorize('view', $order);
+        abort_unless($order->user_id === Auth::id(), 403, 'Akses ditolak.');
 
         if ($order->status !== 'pending') {
             return back()->with('error', 'Pesanan tidak dapat dibatalkan.');
@@ -73,6 +75,7 @@ class CustomerOrderController extends Controller
     public function complete(Order $order)
     {
         $this->authorize('view', $order);
+        abort_unless($order->user_id === Auth::id(), 403, 'Akses ditolak.');
 
         if ($order->status !== 'shipped') {
             return back()->with('error', 'Pesanan belum bisa diselesaikan.');
@@ -89,6 +92,7 @@ class CustomerOrderController extends Controller
     public function invoice(Order $order)
     {
         $this->authorize('view', $order);
+        abort_unless($order->user_id === Auth::id(), 403, 'Akses ditolak.');
 
         $order->load(['store', 'items.product', 'address', 'paymentTransaction']);
         

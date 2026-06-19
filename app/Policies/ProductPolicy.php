@@ -61,7 +61,7 @@ class ProductPolicy
     {
         $store = $user->currentStore();
 
-        return $store && $store->id === $product->store_id;
+        return $store && $store->id === $product->store_id && $user->isOwner();
     }
 
     /**

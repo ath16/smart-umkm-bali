@@ -15,6 +15,13 @@ use Tests\TestCase;
 
 class EndToEndVerificationTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(\Database\Seeders\DummyDataSeeder::class);
+    }
     // ==========================================
     // GUEST SCENARIOS
     // ==========================================
@@ -119,6 +126,15 @@ class EndToEndVerificationTest extends TestCase
         $customer = User::where('email', 'customer@smart-umkm.test')->first();
         if(!$customer) $this->markTestSkipped();
         
+        $cart = \App\Models\Cart::firstOrCreate(['user_id' => $customer->id]);
+        $product = \App\Models\Product::first();
+        \App\Models\CartItem::create([
+            'cart_id' => $cart->id,
+            'product_id' => $product->id,
+            'quantity' => 1,
+            'price' => $product->sell_price
+        ]);
+
         $response = $this->actingAs($customer)->get('/checkout');
         $response->assertStatus(200);
     }

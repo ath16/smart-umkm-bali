@@ -1,0 +1,506 @@
+{
+    "missing_foreign_keys": [
+        "suspensions.suspendable_id"
+    ],
+    "missing_indexes": [
+        "articles.status",
+        "payment_transactions.status"
+    ],
+    "foreign_keys": [
+        {
+            "table": "orders",
+            "columns": [
+                "payment_transaction_id"
+            ],
+            "foreign_table": "payment_transactions",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "orders",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "orders",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "products",
+            "columns": [
+                "product_category_id"
+            ],
+            "foreign_table": "product_categories",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "products",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "users",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "users",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "users",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "activity_logs",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "activity_logs",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "article_store",
+            "columns": [
+                "article_id"
+            ],
+            "foreign_table": "articles",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "article_store",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "articles",
+            "columns": [
+                "article_category_id"
+            ],
+            "foreign_table": "article_categories",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "articles",
+            "columns": [
+                "author_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "cart_items",
+            "columns": [
+                "cart_id"
+            ],
+            "foreign_table": "carts",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "cart_items",
+            "columns": [
+                "product_id"
+            ],
+            "foreign_table": "products",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "carts",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "customer_addresses",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "customer_profiles",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "order_addresses",
+            "columns": [
+                "order_id"
+            ],
+            "foreign_table": "orders",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "order_items",
+            "columns": [
+                "order_id"
+            ],
+            "foreign_table": "orders",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "order_items",
+            "columns": [
+                "product_id"
+            ],
+            "foreign_table": "products",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "orders",
+            "columns": [
+                "payment_transaction_id"
+            ],
+            "foreign_table": "payment_transactions",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "orders",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "orders",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "payment_transactions",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "product_images",
+            "columns": [
+                "product_id"
+            ],
+            "foreign_table": "products",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "product_reviews",
+            "columns": [
+                "order_id"
+            ],
+            "foreign_table": "orders",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "product_reviews",
+            "columns": [
+                "product_id"
+            ],
+            "foreign_table": "products",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "product_reviews",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "products",
+            "columns": [
+                "product_category_id"
+            ],
+            "foreign_table": "product_categories",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "products",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "store_banners",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "store_reviews",
+            "columns": [
+                "order_id"
+            ],
+            "foreign_table": "orders",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "store_reviews",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "store_reviews",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "store_settings",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "stores",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "stores",
+            "columns": [
+                "store_category_id"
+            ],
+            "foreign_table": "store_categories",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        },
+        {
+            "table": "suspensions",
+            "columns": [
+                "admin_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "transaction_details",
+            "columns": [
+                "product_id"
+            ],
+            "foreign_table": "products",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "transaction_details",
+            "columns": [
+                "transaction_id"
+            ],
+            "foreign_table": "transactions",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "transactions",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "transactions",
+            "columns": [
+                "user_id"
+            ],
+            "foreign_table": "users",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "cascade"
+        },
+        {
+            "table": "users",
+            "columns": [
+                "store_id"
+            ],
+            "foreign_table": "stores",
+            "foreign_columns": [
+                "id"
+            ],
+            "on_delete": "set null"
+        }
+    ]
+}

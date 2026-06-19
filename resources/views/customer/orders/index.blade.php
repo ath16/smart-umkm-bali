@@ -1,10 +1,8 @@
-@extends('layouts.customer')
-
-@section('title', 'Riwayat Pesanan')
-
-@section('header', 'Riwayat Pesanan')
-
-@section('customer-content')
+<x-customer-layout>
+    <x-slot name="title">Riwayat Pesanan</x-slot>
+    <x-slot name="header">
+        <h2 class="font-playfair font-semibold text-2xl text-basalt">Riwayat Pesanan</h2>
+    </x-slot>
 <div class="bg-surface-white border border-outline rounded-heritage p-6 shadow-sm">
     
     @if(session('success'))
@@ -92,4 +90,4 @@
         </div>
     @endif
 </div>
-@endsection
+</x-customer-layout>

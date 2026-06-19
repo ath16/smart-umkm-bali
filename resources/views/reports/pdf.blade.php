@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Laporan Penjualan - {{ $business->name }}</title>
+    <title>Laporan Penjualan - {{ $store->name ?? 'Toko' }}</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -100,8 +100,9 @@
 <body>
 
     <div class="header">
-        <h1>{{ $business->name }}</h1>
-        <p>{{ $business->address ?? 'Alamat tidak tersedia' }} | {{ $business->contact ?? 'Kontak tidak tersedia' }}</p>
+        <h3>{{ $store->name ?? 'Toko' }}</h3>
+        <p>{{ $store->address ?? 'Alamat tidak tersedia' }}</p>
+        <p>{{ $store->contact ?? 'Kontak tidak tersedia' }}</p>
     </div>
 
     <table class="info-table">

@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Transaksi Baru')
+    <x-slot:title>Kasir</x-slot:title>
 
     <x-slot name="header">
         <h1 class="font-display text-headline-md text-primary-dark">Transaksi Baru</h1>

@@ -1,17 +1,13 @@
-@extends('layouts.customer')
-
-@section('title', 'Detail Pesanan')
-
-@section('header')
-<div class="flex items-center gap-4">
-    <a href="{{ route('customer.orders.index') }}" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
-    </a>
-    Detail Pesanan
-</div>
-@endsection
-
-@section('customer-content')
+<x-customer-layout>
+    <x-slot name="title">Detail Pesanan</x-slot>
+    <x-slot name="header">
+        <div class="flex items-center gap-4">
+            <a href="{{ route('customer.orders.index') }}" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+            </a>
+            Detail Pesanan
+        </div>
+    </x-slot>
 <div class="space-y-6">
 
     @if(session('success'))
@@ -257,4 +253,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-customer-layout>

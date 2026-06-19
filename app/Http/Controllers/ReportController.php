@@ -53,7 +53,7 @@ class ReportController extends Controller
 
         \App\Jobs\GenerateReportPdfJob::dispatch($storeId, $type, $date, $store);
 
-        return redirect()->route('dashboard.reports.index', ['type' => $type, 'date' => $date])
+        return redirect()->route('reports.index', ['type' => $type, 'date' => $date])
             ->with('success', 'Laporan sedang diproses dan akan segera tersedia. Silakan cek berkala.');
     }
 }

@@ -95,7 +95,7 @@ class User extends Authenticatable
 
     public function isCashier(): bool
     {
-        return $this->role === 'cashier';
+        return $this->role === 'cashier' && $this->store_id !== null;
     }
 
     public function isCustomer(): bool
