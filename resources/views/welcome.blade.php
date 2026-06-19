@@ -18,7 +18,7 @@
     <!-- Background Image -->
     <div class="absolute inset-0 -z-10">
         <img 
-            src="https://images.unsplash.com/photo-1604430456280-43f652c497aa?w=1920&q=80" 
+            src="https://images.unsplash.com/photo-VwS7VzK0WQQ?w=1920&q=80" 
             alt="Pengrajin Bali" 
             class="w-full h-full object-cover"
             loading="eager"
@@ -134,7 +134,7 @@
             <div class="reveal" x-data x-intersect.once="$el.classList.add('revealed')">
                 <div class="aspect-[4/5] rounded-lg overflow-hidden">
                     <img 
-                        src="https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=800&q=80" 
+                        src="https://images.unsplash.com/photo-50nPRs-2p98?w=800&q=80" 
                         alt="Warisan Budaya Bali" 
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -246,14 +246,14 @@
 
         @php
             $categoryImages = [
-                'https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=600&q=80',
-                'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80',
-                'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
-                'https://images.unsplash.com/photo-1611244419377-b0a760c19719?w=600&q=80',
-                'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80',
-                'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&q=80',
-                'https://images.unsplash.com/photo-1565108939327-7e8be023855e?w=600&q=80',
-                'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80',
+                'https://images.unsplash.com/photo-P2EIfV_eX_I?w=600&q=80',
+                'https://images.unsplash.com/photo-L8H2x2fG_5w?w=600&q=80',
+                'https://images.unsplash.com/photo-75xPHEQBmvA?w=600&q=80',
+                'https://images.unsplash.com/photo-50nPRs-2p98?w=600&q=80',
+                'https://images.unsplash.com/photo-5e9CmF-Ge9Y?w=600&q=80',
+                'https://images.unsplash.com/photo-YjH9vM6-B-s?w=600&q=80',
+                'https://images.unsplash.com/photo-O53N9Ea4RRE?w=600&q=80',
+                'https://images.unsplash.com/photo-3V8xoIpnYVA?w=600&q=80',
             ];
         @endphp
 
@@ -309,7 +309,7 @@
     <!-- Background -->
     <div class="absolute inset-0 -z-10">
         <img 
-            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1920&q=80" 
+            src="https://images.unsplash.com/photo-3V8xoIpnYVA?w=1920&q=80" 
             alt="Pengrajin Bali bekerja" 
             class="w-full h-full object-cover"
             loading="lazy"
@@ -327,7 +327,7 @@
         
         <div class="flex flex-col items-center gap-3">
             <div class="w-16 h-16 rounded-full bg-surface-container overflow-hidden border-2 border-prada/30">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="Ni Wayan Suartini" class="w-full h-full object-cover" loading="lazy">
+                <img src="https://images.unsplash.com/photo-2_M-r1p1x2M?w=200&q=80" alt="Ni Wayan Suartini" class="w-full h-full object-cover" loading="lazy">
             </div>
             <div>
                 <p class="text-white font-semibold text-body-md">Ni Wayan Suartini</p>
