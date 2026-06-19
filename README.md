@@ -1,58 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Smart UMKM Bali
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Smart UMKM Bali** adalah platform *Marketplace* digital komprehensif yang dirancang untuk memberdayakan Usaha Mikro, Kecil, dan Menengah (UMKM) di wilayah Provinsi Bali. Sistem ini mengintegrasikan etalase produk *online* (*Marketplace*), manajemen inventori dan kasir (*Point of Sale/POS*), serta pelaporan penjualan dalam satu ekosistem (*Omnichannel*).
 
-## About Laravel
+Platform ini dibangun menggunakan arsitektur monolit modern berbasis **Laravel 12** (*PHP 8.3*) dan antarmuka dinamis **TailwindCSS + Alpine.js**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Multi-Tenant Architecture:** Satu platform untuk menampung ribuan UMKM secara independen.
+- **Marketplace Customer:** Pelanggan dapat mencari produk lokal, mengelola keranjang, dan melakukan *checkout* pesanan gabungan antar toko.
+- **Point of Sale (POS):** Kasir di toko fisik dapat mencatat transaksi *offline*, dan sistem secara otomatis menyeimbangkan stok gudang secara *real-time*.
+- **Role-Based Access Control:** Pembatasan ketat antara `Customer`, `Owner` (Pemilik UMKM), `Cashier` (Karyawan), dan `Admin` (Pengelola Sistem).
+- **Payment Gateway Integration:** Sinkronisasi pembayaran otomatis dengan **Midtrans** (*Webhook*).
+- **Automated Reporting:** Ekspor PDF (*Queue-based*) dan laporan finansial interaktif.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📚 Dokumentasi Resmi (Buku Panduan)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Seluruh panduan teknis, langkah operasional, dan laporan tinjauan teknis (*Audit*) tidak ditumpuk pada fail README ini. Kami telah menyediakan direktori khusus `docs/` yang berisi dokumentasi komprehensif dalam format *Markdown*. 
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Silakan merujuk pada fail-fail berikut:
 
-## Agentic Development
+- **[Panduan Pelanggan (Customer Manual)](docs/customer_user_manual.md):** Petunjuk bagi pembeli mengenai cara mencari produk, mendaftar, dan menyelesaikan transaksi.
+- **[Panduan Pemilik Toko (Owner Manual)](docs/owner_user_manual.md):** Petunjuk manajemen operasional toko, penambahan kasir, produk, dan laporan penjualan.
+- **[Panduan Administrator (Admin Manual)](docs/admin_user_manual.md):** Petunjuk manajemen kontrol sistem, moderasi toko (*Suspend*), dan pemantauan aktivitas.
+- **[Panduan Peluncuran (Deployment Guide)](docs/deployment_guide.md):** Instruksi konfigurasi peladen (*Server*) Production berbasis Ubuntu, Nginx, PHP 8.3, dan MySQL 8.
+- **[Tinjauan Kesiapan Akhir (Soft Launch Review)](docs/soft_launch_readiness_review.md):** Hasil asesmen teknis mutakhir yang mensertifikasi kesiapan sistem.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+## 💻 Instalasi Lokal (Development)
 
-php artisan boost:install
-```
+Untuk menjalankan proyek ini secara lokal, ikuti instruksi standar berikut:
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+1. Kloning repositori:
+   ```bash
+   git clone https://github.com/ath16/smart-umkm-bali.git
+   cd smart-umkm-bali
+   ```
+2. Salin dan konfigurasikan *Environment*:
+   ```bash
+   cp .env.example .env
+   ```
+3. Unduh dependensi:
+   ```bash
+   composer install
+   npm install
+   ```
+4. Buat kunci aplikasi dan jalankan migrasi:
+   ```bash
+   php artisan key:generate
+   php artisan migrate --seed
+   ```
+5. Kompilasi aset dan jalankan peladen *development*:
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🔒 Lisensi & Keamanan
 
-## Code of Conduct
+Perangkat lunak ini dikembangkan secara tertutup untuk kebutuhan sistem akademik / bisnis yang diproteksi. 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Jika menemukan celah keamanan (*Vulnerability*), harap langsung hubungi tim pengembang (*Superadmin*), tidak melaporkannya di *Issue Tracker* publik.
