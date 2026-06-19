@@ -37,3 +37,7 @@ npm-debug.log
 yarn-error.log
 yarn-debug.log
 pnpm-debug.log
+
+# Playwright Test Artifacts
+/playwright-report
+/test-results
