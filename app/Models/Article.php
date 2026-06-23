@@ -19,7 +19,7 @@ class Article extends Model
         'slug',
         'excerpt',
         'content',
-        'featured_image',
+        'featured_image_url',
         'status',
         'published_at',
         'meta_title',

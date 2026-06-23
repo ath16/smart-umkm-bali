@@ -18,7 +18,7 @@
     <!-- Background Image -->
     <div class="absolute inset-0 -z-10">
         <img 
-            src="https://images.unsplash.com/photo-VwS7VzK0WQQ?w=1920&q=80" 
+            src="{{ imageUrl('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=1920', 'hero') }}" 
             alt="Pengrajin Bali" 
             class="w-full h-full object-cover"
             loading="eager"
@@ -85,7 +85,7 @@
                     <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden relative mb-4">
                         @if($product->images && $product->images->count() > 0)
                             <img 
-                                src="{{ Storage::url($product->images->first()->image_path) }}" 
+                                src="{{ imageUrl($product->images->first()->image_url ?? null, 'product_card') }}" 
                                 alt="{{ $product->name }}" 
                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 loading="lazy"
@@ -134,7 +134,7 @@
             <div class="reveal" x-data x-intersect.once="$el.classList.add('revealed')">
                 <div class="aspect-[4/5] rounded-lg overflow-hidden">
                     <img 
-                        src="https://images.unsplash.com/photo-50nPRs-2p98?w=800&q=80" 
+                        src="{{ imageUrl('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&q=80&w=800', 'large') }}" 
                         alt="Warisan Budaya Bali" 
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -190,7 +190,7 @@
                     <!-- Store Banner -->
                     <div class="h-40 bg-surface-container relative overflow-hidden">
                         @if($store->setting && $store->setting->banner_path)
-                            <img src="{{ Storage::url($store->setting->banner_path) }}" alt="{{ $store->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <img src="{{ imageUrl($store->setting->banner_url ?? null, 'banner') }}" alt="{{ $store->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         @else
                             <div class="w-full h-full bg-gradient-to-br from-terracotta/10 to-prada/10"></div>
                         @endif
@@ -202,7 +202,7 @@
                         <!-- Avatar -->
                         <div class="absolute -top-8 left-6 w-16 h-16 bg-surface-white rounded-full border-4 border-surface-white shadow-card overflow-hidden flex items-center justify-center">
                             @if($store->setting && $store->setting->logo_path)
-                                <img src="{{ Storage::url($store->setting->logo_path) }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
+                                <img src="{{ imageUrl($store->setting->logo_url ?? null, 'thumbnail') }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
                             @else
                                 <span class="font-playfair font-bold text-2xl text-terracotta">{{ substr($store->name, 0, 1) }}</span>
                             @endif
@@ -246,14 +246,14 @@
 
         @php
             $categoryImages = [
-                'https://images.unsplash.com/photo-P2EIfV_eX_I?w=600&q=80',
-                'https://images.unsplash.com/photo-L8H2x2fG_5w?w=600&q=80',
-                'https://images.unsplash.com/photo-75xPHEQBmvA?w=600&q=80',
-                'https://images.unsplash.com/photo-50nPRs-2p98?w=600&q=80',
-                'https://images.unsplash.com/photo-5e9CmF-Ge9Y?w=600&q=80',
-                'https://images.unsplash.com/photo-YjH9vM6-B-s?w=600&q=80',
-                'https://images.unsplash.com/photo-O53N9Ea4RRE?w=600&q=80',
-                'https://images.unsplash.com/photo-3V8xoIpnYVA?w=600&q=80',
+                imageUrl('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&q=80&w=800', 'medium'),
+                imageUrl('https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=800', 'medium'),
             ];
         @endphp
 
@@ -309,7 +309,7 @@
     <!-- Background -->
     <div class="absolute inset-0 -z-10">
         <img 
-            src="https://images.unsplash.com/photo-3V8xoIpnYVA?w=1920&q=80" 
+            src="{{ imageUrl('https://images.unsplash.com/photo-1558005530-a7958896ec60?auto=format&fit=crop&q=80&w=1920', 'hero') }}" 
             alt="Pengrajin Bali bekerja" 
             class="w-full h-full object-cover"
             loading="lazy"
@@ -327,7 +327,7 @@
         
         <div class="flex flex-col items-center gap-3">
             <div class="w-16 h-16 rounded-full bg-surface-container overflow-hidden border-2 border-prada/30">
-                <img src="https://images.unsplash.com/photo-2_M-r1p1x2M?w=200&q=80" alt="Ni Wayan Suartini" class="w-full h-full object-cover" loading="lazy">
+                <img src="{{ imageUrl('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=800', 'medium') }}" alt="Ni Wayan Suartini" class="w-full h-full object-cover" loading="lazy">
             </div>
             <div>
                 <p class="text-white font-semibold text-body-md">Ni Wayan Suartini</p>
@@ -411,7 +411,7 @@
                 >
                     <div class="aspect-[3/2] rounded-lg overflow-hidden mb-5">
                         @if($article->image_path)
-                            <img src="{{ Storage::url($article->image_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                            <img src="{{ imageUrl($article->featured_image_url, 'medium') }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                         @else
                             <div class="w-full h-full bg-gradient-to-br from-terracotta/20 to-prada/10"></div>
                         @endif

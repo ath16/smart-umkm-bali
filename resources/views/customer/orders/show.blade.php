@@ -77,7 +77,7 @@
                         <div class="flex gap-4">
                             <div class="w-16 h-16 bg-surface-container rounded border border-outline shrink-0 overflow-hidden">
                                 @if($item->product && $item->product->images->count() > 0)
-                                    <img src="{{ Storage::url($item->product->images->first()->image_path) }}" alt="{{ $item->product_name }}" class="w-full h-full object-cover">
+                                    <img src="{{ imageUrl($item->product->images->first()->image_url ?? null, 'thumbnail') }}" alt="{{ $item->product_name }}" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="flex-1">

@@ -11,8 +11,8 @@ class StoreSetting extends Model
 
     protected $fillable = [
         'store_id',
-        'logo_path',
-        'banner_path',
+        'logo_url',
+        'banner_url',
         'operational_hours',
         'social_links',
         'theme_config',

@@ -46,7 +46,7 @@
                                         {{-- Product Image --}}
                                         <a href="{{ route('products.show', $item->product->slug ?? $item->product->id) }}" class="shrink-0 w-24 h-28 sm:w-28 sm:h-32 rounded-lg overflow-hidden bg-surface-container">
                                             @if($item->product->images && $item->product->images->count() > 0)
-                                                <img src="{{ Storage::url($item->product->images->first()->image_path) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
+                                                <img src="{{ imageUrl($item->product->images->first()->image_url ?? null, 'thumbnail') }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
                                             @else
                                                 <div class="w-full h-full flex items-center justify-center text-basalt/10">
                                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Z"/></svg>

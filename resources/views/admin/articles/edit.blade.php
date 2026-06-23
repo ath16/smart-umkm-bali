@@ -105,7 +105,7 @@
                 @if($article->featured_image)
                     <div class="mb-4">
                         <p class="text-xs text-on-surface-variant mb-1">Gambar saat ini:</p>
-                        <img src="{{ Storage::url($article->featured_image) }}" alt="Featured Image" class="w-full h-32 object-cover rounded-md">
+                        <img src="{{ imageUrl($article->featured_image_url, 'medium') }}" alt="Featured Image" class="w-full h-32 object-cover rounded-md">
                     </div>
                 @endif
                 <input type="file" name="featured_image" accept="image/*" class="w-full text-body-sm text-text-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark">

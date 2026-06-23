@@ -8,7 +8,7 @@
 <meta property="og:description" content="{{ $store->description ?? 'Temukan produk premium dari pengrajin Bali.' }}">
 <meta property="og:type" content="profile">
 @if($store->setting && $store->setting->banner_path)
-<meta property="og:image" content="{{ asset(Storage::url($store->setting->banner_path)) }}">
+<meta property="og:image" content="{{ imageUrl($store->setting->banner_url ?? null, 'large') }}">
 @endif
 @endsection
 
@@ -32,7 +32,7 @@
 <section class="relative h-[70vh] md:h-[80vh] overflow-hidden">
     {{-- Background Image --}}
     @if($store->setting && $store->setting->banner_path)
-        <img src="{{ Storage::url($store->setting->banner_path) }}" alt="{{ $store->name }}" class="absolute inset-0 w-full h-full object-cover" loading="eager">
+        <img src="{{ imageUrl($store->setting->banner_url ?? null, 'banner') }}" alt="{{ $store->name }}" class="absolute inset-0 w-full h-full object-cover" loading="eager">
     @else
         <div class="absolute inset-0 bg-gradient-to-br from-basalt via-basalt/80 to-basalt/60"></div>
     @endif
@@ -47,7 +47,7 @@
             {{-- Logo / Avatar --}}
             <div class="mx-auto w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white/30 shadow-premium overflow-hidden bg-surface-white mb-6">
                 @if($store->setting && $store->setting->logo_path)
-                    <img src="{{ Storage::url($store->setting->logo_path) }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
+                    <img src="{{ imageUrl($store->setting->logo_url ?? null, 'thumbnail') }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
                 @else
                     <div class="w-full h-full flex items-center justify-center bg-store-primary">
                         <span class="font-playfair font-bold text-4xl md:text-5xl text-white">{{ substr($store->name, 0, 1) }}</span>
@@ -128,7 +128,7 @@
             {{-- Owner Image --}}
             <div class="aspect-[4/5] rounded-lg overflow-hidden bg-surface-container">
                 @if($store->setting && $store->setting->logo_path)
-                    <img src="{{ Storage::url($store->setting->logo_path) }}" alt="Pengrajin {{ $store->name }}" class="w-full h-full object-cover">
+                    <img src="{{ imageUrl($store->setting->logo_url ?? null, 'thumbnail') }}" alt="Pengrajin {{ $store->name }}" class="w-full h-full object-cover">
                 @else
                     <div class="w-full h-full flex items-center justify-center bg-store-primary/10">
                         <span class="font-playfair font-bold text-8xl text-store-primary/30">{{ substr($store->name, 0, 1) }}</span>
@@ -234,7 +234,7 @@
                 <a href="{{ route('products.show', $product->slug ?? $product->id) }}" class="group">
                     <div class="aspect-[4/5] bg-cream-premium rounded-lg overflow-hidden mb-4 relative">
                         @if($product->images && $product->images->count() > 0)
-                            <img src="{{ Storage::url($product->images->where('is_primary', true)->first()->image_path ?? $product->images->first()->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy">
+                            <img src="{{ imageUrl($product->images->where('is_primary', true)->first()->image_url ?? $product->images->first()->image_url ?? null, 'product_card') }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-basalt/10">
                                 <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
@@ -321,7 +321,7 @@
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 bg-surface-white flex items-center justify-center">
                         @if($store->setting && $store->setting->logo_path)
-                            <img src="{{ Storage::url($store->setting->logo_path) }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
+                            <img src="{{ imageUrl($store->setting->logo_url ?? null, 'thumbnail') }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
                         @else
                             <span class="font-playfair font-bold text-xl text-store-primary">{{ substr($store->name, 0, 1) }}</span>
                         @endif

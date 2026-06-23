@@ -10,7 +10,7 @@
     <meta property="og:title" content="{{ $article->meta_title ?? $article->title }}" />
     <meta property="og:description" content="{{ $article->meta_description ?? $article->excerpt }}" />
     @if($article->featured_image)
-    <meta property="og:image" content="{{ asset(Storage::url($article->featured_image)) }}" />
+    <meta property="og:image" content="{{ imageUrl($article->featured_image_url, 'large') }}" />
     @endif
     <meta property="og:url" content="{{ request()->url() }}" />
     
@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="{{ $article->meta_title ?? $article->title }}">
     <meta name="twitter:description" content="{{ $article->meta_description ?? $article->excerpt }}">
     @if($article->featured_image)
-    <meta name="twitter:image" content="{{ asset(Storage::url($article->featured_image)) }}">
+    <meta name="twitter:image" content="{{ imageUrl($article->featured_image_url, 'large') }}">
     @endif
 
     <style>
@@ -91,7 +91,7 @@
     @if($article->featured_image)
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <div class="rounded-3xl overflow-hidden shadow-2xl">
-            <img src="{{ Storage::url($article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-auto max-h-[70vh] object-cover">
+            <img src="{{ imageUrl($article->featured_image_url, 'large') }}" alt="{{ $article->title }}" class="w-full h-auto max-h-[70vh] object-cover">
         </div>
     </div>
     @endif
@@ -172,7 +172,7 @@
             <a href="{{ route('blog.show', $related->slug) }}" class="group flex flex-col bg-surface-white border border-outline rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300">
                 <div class="aspect-w-16 aspect-h-10 w-full overflow-hidden bg-surface-container">
                     @if($related->featured_image)
-                        <img src="{{ Storage::url($related->featured_image) }}" alt="{{ $related->title }}" class="w-full h-48 object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ imageUrl($related->featured_image_url, 'medium') }}" alt="{{ $related->title }}" class="w-full h-48 object-cover object-center group-hover:scale-105 transition-transform duration-500">
                     @endif
                 </div>
                 <div class="p-6">

@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Store;
+use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
+    public function __construct(
+        protected CloudinaryService $cloudinary
+    ) {}
     public function index()
     {
         $articles = Article::with('category', 'author')->latest()->paginate(10);
@@ -47,7 +51,8 @@ class ArticleController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
+            $result = $this->cloudinary->uploadArticleImage($request->file('featured_image'));
+            $data['featured_image_url'] = $result['url'];
         }
 
         $article = Article::create($data);
@@ -87,7 +92,9 @@ class ArticleController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
+            $this->cloudinary->deleteImage($article->featured_image_url);
+            $result = $this->cloudinary->uploadArticleImage($request->file('featured_image'));
+            $data['featured_image_url'] = $result['url'];
         }
 
         $article->update($data);
@@ -103,6 +110,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        $this->cloudinary->deleteImage($article->featured_image_url);
         $article->delete();
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus.');
     }

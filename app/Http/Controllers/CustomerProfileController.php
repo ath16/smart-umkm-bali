@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -59,12 +59,10 @@ class CustomerProfileController extends Controller
 
         // Handle Avatar Upload
         if ($request->hasFile('avatar')) {
-            // Delete old avatar if exists
-            if ($profile->avatar) {
-                Storage::disk('public')->delete($profile->avatar);
-            }
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $profileData['avatar'] = $path;
+            $cloudinary = app(CloudinaryService::class);
+            $cloudinary->deleteImage($profile->avatar_url);
+            $result = $cloudinary->uploadUserAvatar($request->file('avatar'), auth()->id());
+            $profileData['avatar_url'] = $result['url'];
         }
 
         $profile->update($profileData);

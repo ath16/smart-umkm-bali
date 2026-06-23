@@ -156,7 +156,7 @@
                     <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden relative mb-4">
                         @if($product->images && $product->images->count() > 0)
                             <img 
-                                src="{{ Storage::url($product->images->where('is_primary', true)->first()->image_path ?? $product->images->first()->image_path) }}" 
+                                src="{{ imageUrl($product->images->where('is_primary', true)->first()->image_url ?? $product->images->first()->image_url ?? null, 'product_card') }}" 
                                 alt="{{ $product->name }}" 
                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 loading="lazy"

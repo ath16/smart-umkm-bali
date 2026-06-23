@@ -10,7 +10,7 @@
     <meta property="og:title" content="{{ $product->name }} | Smart UMKM Bali" />
     <meta property="og:description" content="{{ $product->description ?? 'Dapatkan produk lokal terbaik dari Bali.' }}" />
     @if($product->images->count() > 0)
-    <meta property="og:image" content="{{ asset(Storage::url($product->images->first()->image_path)) }}" />
+    <meta property="og:image" content="{{ imageUrl($product->images->first()->image_url ?? null, 'large') }}" />
     @endif
     <meta property="og:url" content="{{ request()->url() }}" />
     
@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="{{ $product->name }}">
     <meta name="twitter:description" content="{{ $product->description ?? 'Dapatkan produk lokal terbaik dari Bali.' }}">
     @if($product->images->count() > 0)
-    <meta name="twitter:image" content="{{ asset(Storage::url($product->images->first()->image_path)) }}">
+    <meta name="twitter:image" content="{{ imageUrl($product->images->first()->image_url ?? null, 'large') }}">
     @endif
 @endsection
 
@@ -57,7 +57,7 @@
                         @if($product->images && $product->images->count() > 0)
                             @foreach($product->images as $index => $img)
                                 <div class="snap-center shrink-0 w-full aspect-[4/5] bg-surface-container rounded-lg overflow-hidden">
-                                    <img src="{{ Storage::url($img->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                                    <img src="{{ imageUrl($img->image_url, 'large') }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                                 </div>
                             @endforeach
                         @else
@@ -81,7 +81,7 @@
                     @if($product->images && $product->images->count() > 0)
                         @foreach($product->images as $img)
                             <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden">
-                                <img src="{{ Storage::url($img->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700 ease-out" loading="lazy">
+                                <img src="{{ imageUrl($img->image_url, 'thumbnail') }}" alt="{{ $product->name }}" class="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700 ease-out" loading="lazy">
                             </div>
                         @endforeach
                     @else
@@ -182,7 +182,7 @@
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-14 h-14 rounded-full bg-surface-white border border-outline/30 flex items-center justify-center overflow-hidden shadow-sm">
                                 @if($product->store->setting && $product->store->setting->logo_path)
-                                    <img src="{{ Storage::url($product->store->setting->logo_path) }}" alt="{{ $product->store->name }}" class="w-full h-full object-cover">
+                                    <img src="{{ imageUrl($product->store->setting->logo_url ?? null, 'thumbnail') }}" alt="{{ $product->store->name }}" class="w-full h-full object-cover">
                                 @else
                                     <span class="font-playfair font-bold text-xl text-terracotta">{{ substr($product->store->name, 0, 1) }}</span>
                                 @endif
@@ -253,7 +253,7 @@
                     <a href="{{ route('products.show', $simProduct->slug ?? $simProduct->id) }}" class="snap-start shrink-0 w-[65vw] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] group">
                         <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden mb-4">
                             @if($simProduct->images && $simProduct->images->count() > 0)
-                                <img src="{{ Storage::url($simProduct->images->where('is_primary', true)->first()->image_path ?? $simProduct->images->first()->image_path) }}" alt="{{ $simProduct->name }}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy">
+                                <img src="{{ imageUrl($simProduct->images->where('is_primary', true)->first()->image_url ?? $simProduct->images->first()->image_url ?? null, 'product_card') }}" alt="{{ $simProduct->name }}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-basalt/10">
                                     <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>

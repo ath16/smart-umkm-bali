@@ -15,7 +15,7 @@ class CustomerProfile extends Model
         'phone',
         'birth_date',
         'gender',
-        'avatar',
+        'avatar_url',
     ];
 
     protected $casts = [

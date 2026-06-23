@@ -28,7 +28,7 @@
                 <!-- Featured Image -->
                 <div class="aspect-w-16 aspect-h-10 w-full overflow-hidden bg-surface-container">
                     @if($article->featured_image)
-                        <img src="{{ Storage::url($article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-64 object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ imageUrl($article->featured_image_url, 'medium') }}" alt="{{ $article->title }}" class="w-full h-64 object-cover object-center group-hover:scale-105 transition-transform duration-500">
                     @else
                         <div class="w-full h-64 flex items-center justify-center text-on-surface-variant">
                             <svg class="w-12 h-12 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"></path></svg>

@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Store;
 use App\Models\StoreCategory;
 use App\Models\StoreSetting;
+use App\Services\CloudinaryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class StoreController extends Controller
 {
+    public function __construct(
+        protected CloudinaryService $cloudinary
+    ) {}
     /**
      * Show the form for creating a new store.
      */
@@ -105,17 +108,15 @@ class StoreController extends Controller
         $setting = $store->setting ?? new StoreSetting(['store_id' => $store->id]);
 
         if ($request->hasFile('logo')) {
-            if ($setting->logo_path) {
-                Storage::disk('public')->delete($setting->logo_path);
-            }
-            $setting->logo_path = $request->file('logo')->store('stores/logos', 'public');
+            $this->cloudinary->deleteImage($setting->logo_url);
+            $result = $this->cloudinary->uploadStoreLogo($request->file('logo'), $store->id);
+            $setting->logo_url = $result['url'];
         }
 
         if ($request->hasFile('banner')) {
-            if ($setting->banner_path) {
-                Storage::disk('public')->delete($setting->banner_path);
-            }
-            $setting->banner_path = $request->file('banner')->store('stores/banners', 'public');
+            $this->cloudinary->deleteImage($setting->banner_url);
+            $result = $this->cloudinary->uploadStoreBanner($request->file('banner'), $store->id);
+            $setting->banner_url = $result['url'];
         }
 
         if ($request->filled('operational_hours')) {

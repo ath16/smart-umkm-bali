@@ -64,7 +64,7 @@
                             <x-input-label for="logo" :value="__('Logo Toko')" />
                             @if($store->setting && $store->setting->logo_path)
                                 <div class="mt-2 mb-2 w-16 h-16 rounded overflow-hidden border border-gray-200">
-                                    <img src="{{ Storage::url($store->setting->logo_path) }}" alt="Logo" class="w-full h-full object-cover">
+                                    <img src="{{ imageUrl($store->setting->logo_url ?? null, 'thumbnail') }}" alt="Logo" class="w-full h-full object-cover">
                                 </div>
                             @endif
                             <input id="logo" name="logo" type="file" accept="image/jpeg, image/png, image/webp" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
@@ -75,7 +75,7 @@
                             <x-input-label for="banner" :value="__('Banner Toko')" />
                             @if($store->setting && $store->setting->banner_path)
                                 <div class="mt-2 mb-2 h-32 rounded overflow-hidden border border-gray-200">
-                                    <img src="{{ Storage::url($store->setting->banner_path) }}" alt="Banner" class="w-full h-full object-cover">
+                                    <img src="{{ imageUrl($store->setting->banner_url ?? null, 'banner') }}" alt="Banner" class="w-full h-full object-cover">
                                 </div>
                             @endif
                             <input id="banner" name="banner" type="file" accept="image/jpeg, image/png, image/webp" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />

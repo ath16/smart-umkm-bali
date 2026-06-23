@@ -12,7 +12,7 @@ class StoreBanner extends Model
 
     protected $fillable = [
         'store_id',
-        'image_path',
+        'image_url',
         'is_active',
     ];
 

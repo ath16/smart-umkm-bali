@@ -38,11 +38,11 @@
                 <a href="{{ route('catalog.show', $store->slug) }}" class="group bg-surface-white rounded-heritage border border-outline overflow-hidden hover:shadow-card hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
                     <div class="h-32 bg-surface-container-high w-full relative">
                         @if($store->setting && $store->setting->banner_path)
-                            <img src="{{ Storage::url($store->setting->banner_path) }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
+                            <img src="{{ imageUrl($store->setting->banner_url ?? null, 'banner') }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
                         @endif
                         <div class="absolute -bottom-6 left-4 w-16 h-16 bg-surface-white rounded-full border-4 border-surface-white shadow-sm overflow-hidden flex items-center justify-center text-primary font-bold text-title-md">
                             @if($store->setting && $store->setting->logo_path)
-                                <img src="{{ Storage::url($store->setting->logo_path) }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
+                                <img src="{{ imageUrl($store->setting->logo_url ?? null, 'thumbnail') }}" alt="{{ $store->name }}" class="w-full h-full object-cover">
                             @else
                                 {{ substr($store->name, 0, 1) }}
                             @endif

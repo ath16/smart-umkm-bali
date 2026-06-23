@@ -62,7 +62,7 @@
                     <div class="flex items-center gap-3 px-2">
                         @php $avatar = Auth::user()->customerProfile?->avatar; @endphp
                         @if($avatar)
-                            <img src="{{ Storage::url($avatar) }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-outline/30">
+                            <img src="{{ imageUrl($avatar, 'thumbnail') }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-outline/30">
                         @else
                             <div class="w-10 h-10 rounded-full bg-terracotta/10 flex items-center justify-center">
                                 <span class="font-playfair font-semibold text-terracotta">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>

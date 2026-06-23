@@ -17,7 +17,7 @@
                 {{-- Avatar --}}
                 <div class="flex items-center gap-6">
                     @if($profile->avatar)
-                        <img src="{{ Storage::url($profile->avatar) }}" alt="Avatar" class="w-20 h-20 rounded-full object-cover border-2 border-outline/30">
+                        <img src="{{ imageUrl($profile->avatar_url, 'thumbnail') }}" alt="Avatar" class="w-20 h-20 rounded-full object-cover border-2 border-outline/30">
                     @else
                         <div class="w-20 h-20 rounded-full bg-terracotta/10 flex items-center justify-center">
                             <span class="font-playfair font-bold text-3xl text-terracotta">{{ strtoupper(substr($user->name, 0, 1)) }}</span>

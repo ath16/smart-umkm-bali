@@ -28,7 +28,7 @@ class SearchController extends Controller
                 'price' => $product->formatted_sell_price,
                 'store' => $product->store->name ?? '',
                 'url' => route('products.show', $product->slug),
-                'image' => $product->images->first() ? \Illuminate\Support\Facades\Storage::url($product->images->first()->image_path) : null,
+                'image' => $product->images->first() ? imageUrl($product->images->first()->image_url ?? null, 'thumbnail') : null,
             ];
         });
 

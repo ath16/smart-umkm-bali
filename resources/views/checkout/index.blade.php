@@ -121,7 +121,7 @@
                                     <div class="flex gap-3">
                                         <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container shrink-0">
                                             @if($item->product->images && $item->product->images->count() > 0)
-                                                <img src="{{ Storage::url($item->product->images->first()->image_path) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
+                                                <img src="{{ imageUrl($item->product->images->first()->image_url ?? null, 'thumbnail') }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
                                             @endif
                                         </div>
                                         <div class="flex-1 min-w-0">
