@@ -250,7 +250,7 @@
             </div>
             <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-5 pb-4 -mx-4 px-4">
                 @foreach($similarProducts as $simProduct)
-                    <a href="{{ route('products.show', $simProduct->slug ?? $simProduct->id) }}" class="snap-start shrink-0 w-[65vw] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] group">
+                    <a href="{{ route('products.show', $simProduct->slug) }}" class="snap-start shrink-0 w-[65vw] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] group">
                         <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden mb-4">
                             @if($simProduct->images && $simProduct->images->count() > 0)
                                 <img src="{{ imageUrl($simProduct->images->where('is_primary', true)->first()->image_url ?? $simProduct->images->first()->image_url ?? null, 'product_card') }}" alt="{{ $simProduct->name }}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy">

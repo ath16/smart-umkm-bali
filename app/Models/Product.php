@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
@@ -32,11 +33,46 @@ class Product extends Model
 
     protected static function booted(): void
     {
+        static::creating(function ($product) {
+            if (empty($product->slug)) {
+                $product->slug = static::generateUniqueSlug($product->name);
+            }
+        });
+
+        static::updating(function ($product) {
+            // Only regenerate if name changed and slug wasn't explicitly changed
+            if ($product->isDirty('name') && !$product->isDirty('slug')) {
+                $product->slug = static::generateUniqueSlug($product->name);
+            }
+            
+            // Fallback: If somehow slug is still empty on update, generate it
+            if (empty($product->slug)) {
+                $product->slug = static::generateUniqueSlug($product->name);
+            }
+        });
+
         static::deleting(function ($product) {
             $product->images->each(function ($image) {
                 $image->delete();
             });
         });
+    }
+
+    /**
+     * Generate a unique slug for the product.
+     */
+    protected static function generateUniqueSlug(string $name): string
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $count = 2;
+
+        while (static::where('slug', $slug)->exists()) {
+            $slug = "{$originalSlug}-{$count}";
+            $count++;
+        }
+
+        return $slug;
     }
 
     protected function casts(): array

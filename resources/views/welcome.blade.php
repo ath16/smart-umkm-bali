@@ -81,7 +81,7 @@
         <!-- Products Carousel -->
         <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-5 pb-4 -mx-4 px-4 reveal" x-data x-intersect.once="$el.classList.add('revealed')">
             @forelse($popularProducts ?? [] as $product)
-                <a href="{{ route('products.show', $product->slug ?? $product->id) }}" class="snap-start shrink-0 w-[75vw] sm:w-[45vw] md:w-[30vw] lg:w-[23vw] group">
+                <a href="{{ route('products.show', $product->slug) }}" class="snap-start shrink-0 w-[75vw] sm:w-[45vw] md:w-[30vw] lg:w-[23vw] group">
                     <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden relative mb-4">
                         @if($product->images && $product->images->count() > 0)
                             <img

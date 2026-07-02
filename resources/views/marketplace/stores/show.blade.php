@@ -231,7 +231,7 @@
         {{-- Products Grid --}}
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-10">
             @forelse($products as $product)
-                <a href="{{ route('products.show', $product->slug ?? $product->id) }}" class="group">
+                <a href="{{ route('products.show', $product->slug) }}" class="group">
                     <div class="aspect-[4/5] bg-cream-premium rounded-lg overflow-hidden mb-4 relative">
                         @if($product->images && $product->images->count() > 0)
                             <img src="{{ imageUrl($product->images->where('is_primary', true)->first()->image_url ?? $product->images->first()->image_url ?? null, 'product_card') }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy">

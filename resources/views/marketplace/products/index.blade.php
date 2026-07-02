@@ -151,7 +151,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-8">
             @forelse($products as $product)
-                <a href="{{ route('products.show', $product->slug ?? $product->id) }}" class="group">
+                <a href="{{ route('products.show', $product->slug) }}" class="group">
                     {{-- Product Image --}}
                     <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden relative mb-4">
                         @if($product->images && $product->images->count() > 0)

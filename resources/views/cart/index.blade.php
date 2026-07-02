@@ -44,7 +44,7 @@
                                     @php $subtotal = $item->quantity * $item->product->sell_price; $totalAmount += $subtotal; @endphp
                                     <div class="p-6 flex gap-4 sm:gap-6" x-data="{ quantity: {{ $item->quantity }}, itemId: {{ $item->id }}, stock: {{ $item->product->stock }}, subtotal: {{ $subtotal }} }">
                                         {{-- Product Image --}}
-                                        <a href="{{ route('products.show', $item->product->slug ?? $item->product->id) }}" class="shrink-0 w-24 h-28 sm:w-28 sm:h-32 rounded-lg overflow-hidden bg-surface-container">
+                                        <a href="{{ route('products.show', $item->product->slug) }}" class="shrink-0 w-24 h-28 sm:w-28 sm:h-32 rounded-lg overflow-hidden bg-surface-container">
                                             @if($item->product->images && $item->product->images->count() > 0)
                                                 <img src="{{ imageUrl($item->product->images->first()->image_url ?? null, 'thumbnail') }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
                                             @else
