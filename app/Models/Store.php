@@ -24,6 +24,15 @@ class Store extends Model
                 $store->slug = \Illuminate\Support\Str::slug($store->name);
             }
         });
+
+        static::deleting(function ($store) {
+            $store->products->each(function ($product) {
+                $product->images->each(function ($image) {
+                    $image->delete();
+                });
+            });
+            $store->setting?->delete();
+        });
     }
 
     protected $fillable = [

@@ -13,12 +13,22 @@ class ProductImage extends Model
     protected $fillable = [
         'product_id',
         'image_url',
+        'public_id',
+        'width',
+        'height',
+        'format',
+        'bytes',
         'is_primary',
     ];
 
     protected $casts = [
         'is_primary' => 'boolean',
     ];
+
+    protected static function booted(): void
+    {
+        static::observe(\App\Observers\ProductImageObserver::class);
+    }
 
     public function product(): BelongsTo
     {

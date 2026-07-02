@@ -16,7 +16,13 @@ class CustomerProfile extends Model
         'birth_date',
         'gender',
         'avatar_url',
+        'avatar_public_id',
     ];
+
+    protected static function booted(): void
+    {
+        static::observe(\App\Observers\CustomerProfileObserver::class);
+    }
 
     protected $casts = [
         'birth_date' => 'date',

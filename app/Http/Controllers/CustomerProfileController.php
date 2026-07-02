@@ -60,9 +60,12 @@ class CustomerProfileController extends Controller
         // Handle Avatar Upload
         if ($request->hasFile('avatar')) {
             $cloudinary = app(CloudinaryService::class);
-            $cloudinary->deleteImage($profile->avatar_url);
+            $cloudinary->deleteByPublicId($profile->avatar_public_id);
             $result = $cloudinary->uploadUserAvatar($request->file('avatar'), auth()->id());
-            $profileData['avatar_url'] = $result['url'];
+            if ($result['success']) {
+                $profileData['avatar_url'] = $result['url'];
+                $profileData['avatar_public_id'] = $result['public_id'];
+            }
         }
 
         $profile->update($profileData);

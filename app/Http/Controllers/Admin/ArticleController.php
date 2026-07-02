@@ -52,7 +52,10 @@ class ArticleController extends Controller
 
         if ($request->hasFile('featured_image')) {
             $result = $this->cloudinary->uploadArticleImage($request->file('featured_image'));
-            $data['featured_image_url'] = $result['url'];
+            if ($result['success']) {
+                $data['featured_image_url'] = $result['url'];
+                $data['featured_image_public_id'] = $result['public_id'];
+            }
         }
 
         $article = Article::create($data);
@@ -92,9 +95,12 @@ class ArticleController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            $this->cloudinary->deleteImage($article->featured_image_url);
+            $this->cloudinary->deleteByPublicId($article->featured_image_public_id);
             $result = $this->cloudinary->uploadArticleImage($request->file('featured_image'));
-            $data['featured_image_url'] = $result['url'];
+            if ($result['success']) {
+                $data['featured_image_url'] = $result['url'];
+                $data['featured_image_public_id'] = $result['public_id'];
+            }
         }
 
         $article->update($data);
@@ -110,7 +116,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
-        $this->cloudinary->deleteImage($article->featured_image_url);
+        // Observer handles Cloudinary cleanup automatically
         $article->delete();
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus.');
     }

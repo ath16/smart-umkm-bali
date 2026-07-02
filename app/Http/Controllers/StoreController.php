@@ -108,15 +108,21 @@ class StoreController extends Controller
         $setting = $store->setting ?? new StoreSetting(['store_id' => $store->id]);
 
         if ($request->hasFile('logo')) {
-            $this->cloudinary->deleteImage($setting->logo_url);
-            $result = $this->cloudinary->uploadStoreLogo($request->file('logo'), $store->id);
-            $setting->logo_url = $result['url'];
+            $this->cloudinary->deleteByPublicId($setting->logo_public_id);
+            $result = $this->cloudinary->uploadStoreLogo($request->file('logo'), $store->slug);
+            if ($result['success']) {
+                $setting->logo_url = $result['url'];
+                $setting->logo_public_id = $result['public_id'];
+            }
         }
 
         if ($request->hasFile('banner')) {
-            $this->cloudinary->deleteImage($setting->banner_url);
-            $result = $this->cloudinary->uploadStoreBanner($request->file('banner'), $store->id);
-            $setting->banner_url = $result['url'];
+            $this->cloudinary->deleteByPublicId($setting->banner_public_id);
+            $result = $this->cloudinary->uploadStoreBanner($request->file('banner'), $store->slug);
+            if ($result['success']) {
+                $setting->banner_url = $result['url'];
+                $setting->banner_public_id = $result['public_id'];
+            }
         }
 
         if ($request->filled('operational_hours')) {

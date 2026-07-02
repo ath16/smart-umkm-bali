@@ -3,10 +3,6 @@
 namespace App\Services;
 
 use Cloudinary\Cloudinary;
-use Cloudinary\Api\Upload\UploadApi;
-use Cloudinary\Transformation\Resize;
-use Cloudinary\Transformation\Format;
-use Cloudinary\Transformation\Quality;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 
@@ -28,44 +24,116 @@ class CloudinaryService
         ]);
     }
 
+    // ─── UPLOAD METHODS ──────────────────────────────────────────────
+
     /**
-     * Upload a product image to Cloudinary.
+     * Upload a product image.
+     * Folder: products/{product-slug}
      */
-    public function uploadProductImage(UploadedFile $file, int $storeId): array
+    public function uploadProductImage(UploadedFile $file, string $productSlug): array
     {
-        return $this->upload($file, "smart-umkm/stores/{$storeId}/products");
+        return $this->upload($file, "products/{$productSlug}");
     }
 
     /**
-     * Upload a store logo to Cloudinary.
+     * Upload a store logo.
+     * Folder: stores/logo/{store-slug}
      */
-    public function uploadStoreLogo(UploadedFile $file, int $storeId): array
+    public function uploadStoreLogo(UploadedFile $file, string $storeSlug): array
     {
-        return $this->upload($file, "smart-umkm/stores/{$storeId}/logo");
+        return $this->upload($file, "stores/logo/{$storeSlug}");
     }
 
     /**
-     * Upload a store banner to Cloudinary.
+     * Upload a store banner.
+     * Folder: stores/banner/{store-slug}
      */
-    public function uploadStoreBanner(UploadedFile $file, int $storeId): array
+    public function uploadStoreBanner(UploadedFile $file, string $storeSlug): array
     {
-        return $this->upload($file, "smart-umkm/stores/{$storeId}/banners");
+        return $this->upload($file, "stores/banner/{$storeSlug}");
     }
 
     /**
-     * Upload a user avatar to Cloudinary.
+     * Upload a user avatar.
+     * Folder: users/avatar/{user-id}
      */
     public function uploadUserAvatar(UploadedFile $file, int $userId): array
     {
-        return $this->upload($file, "smart-umkm/users/{$userId}/avatar");
+        return $this->upload($file, "users/avatar/{$userId}");
     }
 
     /**
-     * Upload an article featured image to Cloudinary.
+     * Upload an article featured image.
+     * Folder: landing/articles
      */
     public function uploadArticleImage(UploadedFile $file): array
     {
-        return $this->upload($file, 'smart-umkm/articles');
+        return $this->upload($file, 'landing/articles');
+    }
+
+    /**
+     * Upload a category image.
+     * Folder: categories/{slug}
+     */
+    public function uploadCategoryImage(UploadedFile $file, string $slug): array
+    {
+        return $this->upload($file, "categories/{$slug}");
+    }
+
+    /**
+     * Upload a landing page asset.
+     * Folder: landing/{section}
+     */
+    public function uploadLandingAsset(UploadedFile $file, string $section = 'hero'): array
+    {
+        return $this->upload($file, "landing/{$section}");
+    }
+
+    /**
+     * Upload a testimonial image.
+     * Folder: testimonials
+     */
+    public function uploadTestimonialImage(UploadedFile $file): array
+    {
+        return $this->upload($file, 'testimonials');
+    }
+
+    // ─── REPLACE ─────────────────────────────────────────────────────
+
+    /**
+     * Replace an existing image: delete old, upload new.
+     * Returns the full Cloudinary result array.
+     */
+    public function replace(?string $oldUrl, ?string $oldPublicId, UploadedFile $file, string $folder): array
+    {
+        // Delete old image first
+        if ($oldPublicId) {
+            $this->deleteByPublicId($oldPublicId);
+        } elseif ($oldUrl) {
+            $this->deleteImage($oldUrl);
+        }
+
+        return $this->upload($file, $folder);
+    }
+
+    // ─── DESTROY ─────────────────────────────────────────────────────
+
+    /**
+     * Delete an image from Cloudinary by its public_id.
+     */
+    public function deleteByPublicId(?string $publicId): bool
+    {
+        if (empty($publicId)) {
+            return false;
+        }
+
+        try {
+            $this->cloudinary->uploadApi()->destroy($publicId);
+            return true;
+        } catch (\Exception $e) {
+            Log::error("Cloudinary delete by public_id failed: {$e->getMessage()}", ['public_id' => $publicId]);
+            return false;
+        }
     }
 
     /**
@@ -73,7 +141,7 @@ class CloudinaryService
      */
     public function deleteImage(?string $url): bool
     {
-        if (empty($url)) {
+        if (empty($url) || !str_contains($url, 'cloudinary.com')) {
             return false;
         }
 
@@ -82,30 +150,17 @@ class CloudinaryService
             return false;
         }
 
-        try {
-            $this->cloudinary->uploadApi()->destroy($publicId);
-            return true;
-        } catch (\Exception $e) {
-            Log::error("Cloudinary delete failed: {$e->getMessage()}", ['url' => $url]);
-            return false;
-        }
+        return $this->deleteByPublicId($publicId);
     }
 
-    /**
-     * Replace an existing image: delete old, upload new.
-     */
-    public function replaceImage(?string $oldUrl, UploadedFile $file, string $folder): array
-    {
-        $this->deleteImage($oldUrl);
-        return $this->upload($file, $folder);
-    }
+    // ─── URL GENERATION & OPTIMIZATION ───────────────────────────────
 
     /**
      * Generate an optimized Cloudinary URL with transformations.
-     * 
+     *
      * @param string|null $url  The base Cloudinary URL.
-     * @param string      $type Preset: 'thumbnail', 'small', 'medium', 'large', 'hero', 'banner', 'product_card'.
-     * @return string The transformed URL, or a placeholder SVG if $url is empty.
+     * @param string      $type Preset: 'thumbnail', 'small', 'medium', 'large', 'hero', 'banner', 'product_card', 'avatar'.
+     * @return string
      */
     public static function generateOptimizedUrl(?string $url, string $type = 'medium'): string
     {
@@ -113,7 +168,7 @@ class CloudinaryService
             return self::placeholderUrl($type);
         }
 
-        // If it's not a Cloudinary URL, return as-is (e.g., Unsplash demo URLs)
+        // If it's not a Cloudinary URL, return as-is
         if (!str_contains($url, 'cloudinary.com') && !str_contains($url, 'res.cloudinary')) {
             return $url;
         }
@@ -131,17 +186,19 @@ class CloudinaryService
 
     /**
      * Get Cloudinary transformation string for a given preset type.
+     * All presets use f_auto (WebP/AVIF), q_auto for optimal delivery.
      */
     protected static function getTransformations(string $type): string
     {
         return match ($type) {
-            'thumbnail'    => 'c_fill,w_300,h_300,f_auto,q_auto',
+            'thumbnail'    => 'c_fill,w_400,h_400,f_auto,q_auto',
             'small'        => 'c_fill,w_400,h_400,f_auto,q_auto',
             'medium'       => 'c_fill,w_600,h_600,f_auto,q_auto',
             'large'        => 'c_fill,w_800,h_800,f_auto,q_auto',
-            'product_card' => 'c_fill,w_600,h_600,f_auto,q_auto',
+            'product_card' => 'c_fill,w_800,h_800,f_auto,q_auto',
             'banner'       => 'c_fill,w_1600,h_600,f_auto,q_auto',
             'hero'         => 'c_fill,w_1920,h_1080,f_auto,q_auto',
+            'avatar'       => 'c_fill,w_300,h_300,f_auto,q_auto',
             default        => 'f_auto,q_auto',
         };
     }
@@ -152,27 +209,29 @@ class CloudinaryService
     public static function placeholderUrl(string $type = 'medium'): string
     {
         [$w, $h] = match ($type) {
-            'thumbnail'    => [300, 300],
+            'thumbnail'    => [400, 400],
             'small'        => [400, 400],
             'medium'       => [600, 600],
             'large'        => [800, 800],
-            'product_card' => [600, 600],
+            'product_card' => [800, 800],
             'banner'       => [1600, 600],
             'hero'         => [1920, 1080],
+            'avatar'       => [300, 300],
             default        => [600, 600],
         };
 
-        // Inline SVG data URI — lightweight, no external request
         $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' . $w . '" height="' . $h . '" viewBox="0 0 ' . $w . ' ' . $h . '">'
-             . '<rect fill="%23e2e8f0" width="' . $w . '" height="' . $h . '"/>'
-             . '<text fill="%2394a3b8" font-family="sans-serif" font-size="16" text-anchor="middle" x="50%25" y="50%25" dy=".3em">No Image</text>'
+             . '<rect fill="%23f1f5f9" width="' . $w . '" height="' . $h . '"/>'
+             . '<text fill="%2394a3b8" font-family="sans-serif" font-size="14" text-anchor="middle" x="50%25" y="50%25" dy=".3em">No Image</text>'
              . '</svg>';
 
         return 'data:image/svg+xml,' . $svg;
     }
 
+    // ─── CORE UPLOAD ─────────────────────────────────────────────────
+
     /**
-     * Core upload logic.
+     * Core upload logic. Returns standardized result array.
      */
     protected function upload(UploadedFile $file, string $folder): array
     {
@@ -183,7 +242,7 @@ class CloudinaryService
                     'folder'         => $folder,
                     'resource_type'  => 'image',
                     'transformation' => [
-                        'quality' => 'auto',
+                        'quality'      => 'auto',
                         'fetch_format' => 'auto',
                     ],
                 ]
@@ -205,9 +264,10 @@ class CloudinaryService
             ]);
 
             return [
-                'success' => false,
-                'url'     => null,
-                'error'   => $e->getMessage(),
+                'success'   => false,
+                'url'       => null,
+                'public_id' => null,
+                'error'     => $e->getMessage(),
             ];
         }
     }
@@ -217,7 +277,6 @@ class CloudinaryService
      */
     protected function extractPublicId(string $url): ?string
     {
-        // Pattern: https://res.cloudinary.com/{cloud}/image/upload/v123/folder/filename.ext
         if (preg_match('#/upload/(?:v\d+/)?(.+?)(?:\.\w+)?$#', $url, $matches)) {
             return $matches[1];
         }

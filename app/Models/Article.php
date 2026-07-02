@@ -20,11 +20,17 @@ class Article extends Model
         'excerpt',
         'content',
         'featured_image_url',
+        'featured_image_public_id',
         'status',
         'published_at',
         'meta_title',
         'meta_description',
     ];
+
+    protected static function booted(): void
+    {
+        static::observe(\App\Observers\ArticleObserver::class);
+    }
 
     protected $casts = [
         'published_at' => 'datetime',

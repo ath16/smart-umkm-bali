@@ -30,6 +30,15 @@ class Product extends Model
         'is_featured',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleting(function ($product) {
+            $product->images->each(function ($image) {
+                $image->delete();
+            });
+        });
+    }
+
     protected function casts(): array
     {
         return [

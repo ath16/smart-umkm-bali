@@ -17,9 +17,9 @@
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0 -z-10">
-        <img 
-            src="{{ imageUrl('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=1920', 'hero') }}" 
-            alt="Pengrajin Bali" 
+        <img
+            src="{{ imageUrl('https://res.cloudinary.com/smart-umkm-bali/image/upload/v1782971298/bali_qit1kr.jpg?auto=format&fit=crop&q=80&w=1920', 'hero') }}"
+            alt="Bali"
             class="w-full h-full object-cover"
             loading="eager"
         >
@@ -31,12 +31,12 @@
         <p class="text-prada tracking-[0.3em] uppercase text-label-md mb-8 animate-fade-in" style="opacity:0">
             Marketplace Premium UMKM Bali
         </p>
-        
+
         <h1 class="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-display-2xl text-white leading-[1.05] tracking-tight mb-8 animate-fade-up" style="opacity:0">
             Karya Tangan Bali,<br>
             <em class="font-normal italic">Untuk Dunia</em>
         </h1>
-        
+
         <p class="text-white/70 text-body-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-up-delay" style="opacity:0">
             Setiap produk menyimpan cerita warisan budaya ribuan tahun — dari tangan pengrajin langsung ke tangan Anda.
         </p>
@@ -73,7 +73,7 @@
                 <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl text-basalt leading-tight">Produk Unggulan</h2>
             </div>
             <a href="{{ route('products.index') }}" class="hidden sm:inline-flex items-center gap-2 text-basalt-muted hover:text-terracotta text-body-sm font-medium transition-colors group">
-                Lihat Semua 
+                Lihat Semua
                 <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
             </a>
         </div>
@@ -84,9 +84,9 @@
                 <a href="{{ route('products.show', $product->slug ?? $product->id) }}" class="snap-start shrink-0 w-[75vw] sm:w-[45vw] md:w-[30vw] lg:w-[23vw] group">
                     <div class="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden relative mb-4">
                         @if($product->images && $product->images->count() > 0)
-                            <img 
-                                src="{{ imageUrl($product->images->first()->image_url ?? null, 'product_card') }}" 
-                                alt="{{ $product->name }}" 
+                            <img
+                                src="{{ imageUrl($product->images->first()->image_url ?? null, 'product_card') }}"
+                                alt="{{ $product->name }}"
                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 loading="lazy"
                             >
@@ -133,15 +133,15 @@
             <!-- Image -->
             <div class="reveal" x-data x-intersect.once="$el.classList.add('revealed')">
                 <div class="aspect-[4/5] rounded-lg overflow-hidden">
-                    <img 
-                        src="{{ imageUrl('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&q=80&w=800', 'large') }}" 
-                        alt="Warisan Budaya Bali" 
+                    <img
+                        src="{{ imageUrl('https://res.cloudinary.com/smart-umkm-bali/image/upload/v1782970749/036177800_1446027482-tari-barong_rllwla.jpg?auto=format&fit=crop&q=80&w=800', 'large') }}"
+                        alt="Warisan Budaya Bali"
                         class="w-full h-full object-cover"
                         loading="lazy"
                     >
                 </div>
             </div>
-            
+
             <!-- Text -->
             <div class="reveal reveal-delay-2" x-data x-intersect.once="$el.classList.add('revealed')">
                 <div class="patra-divider mb-8">
@@ -182,8 +182,8 @@
         <!-- Stores Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($popularStores ?? [] as $index => $store)
-                <a 
-                    href="{{ route('catalog.show', $store->slug) }}" 
+                <a
+                    href="{{ route('catalog.show', $store->slug) }}"
                     class="group bg-surface-white rounded-lg overflow-hidden border border-outline/50 hover:shadow-premium hover:-translate-y-1 transition-all duration-500 reveal reveal-delay-{{ ($index % 3) + 1 }}"
                     x-data x-intersect.once="$el.classList.add('revealed')"
                 >
@@ -196,7 +196,7 @@
                         @endif
                         <div class="absolute inset-0 bg-gradient-to-t from-basalt/30 to-transparent"></div>
                     </div>
-                    
+
                     <!-- Store Info -->
                     <div class="p-6 relative">
                         <!-- Avatar -->
@@ -207,7 +207,7 @@
                                 <span class="font-playfair font-bold text-2xl text-terracotta">{{ substr($store->name, 0, 1) }}</span>
                             @endif
                         </div>
-                        
+
                         <div class="mt-6">
                             <h3 class="font-playfair font-semibold text-lg text-basalt group-hover:text-terracotta transition-colors duration-300 mb-1">{{ $store->name }}</h3>
                             <p class="text-label-sm text-terracotta/70 mb-3">{{ $store->storeCategory->name ?? 'UMKM Bali' }}</p>
@@ -245,27 +245,18 @@
         </div>
 
         @php
-            $categoryImages = [
-                imageUrl('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&q=80&w=800', 'medium'),
-                imageUrl('https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=800', 'medium'),
-            ];
+            $categoryImages = [];
         @endphp
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal" x-data x-intersect.once="$el.classList.add('revealed')">
             @forelse($categories ?? [] as $index => $category)
-                <a 
-                    href="{{ route('products.index', ['category' => $category->slug]) }}" 
+                <a
+                    href="{{ route('products.index', ['category' => $category->slug]) }}"
                     class="relative h-48 md:h-64 rounded-lg overflow-hidden group {{ $index === 0 || $index === 3 ? 'md:col-span-2' : '' }}"
                 >
-                    <img 
-                        src="{{ $categoryImages[$index % count($categoryImages)] }}" 
-                        alt="{{ $category->name }}" 
+                    <img
+                        src="{{ imageUrl($category->image_url ?? null, 'medium') }}"
+                        alt="{{ $category->name }}"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
                     >
@@ -287,7 +278,7 @@
                 @endphp
                 @foreach($staticCategories as $index => $cat)
                     <a href="{{ route('products.index') }}" class="relative h-48 md:h-64 rounded-lg overflow-hidden group {{ $index === 0 || $index === 3 ? 'md:col-span-2' : '' }}">
-                        <img src="{{ $categoryImages[$index] }}" alt="{{ $cat['name'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="{{ placeholderImage('medium') }}" alt="{{ $cat['name'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                         <div class="absolute inset-0 bg-basalt/40 group-hover:bg-basalt/30 transition-colors duration-500"></div>
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
                             <h3 class="font-playfair text-xl md:text-2xl font-medium mb-1 transition-transform duration-500 group-hover:scale-110">{{ $cat['name'] }}</h3>
@@ -308,9 +299,9 @@
 <section class="relative py-32 md:py-40 overflow-hidden">
     <!-- Background -->
     <div class="absolute inset-0 -z-10">
-        <img 
-            src="{{ imageUrl('https://images.unsplash.com/photo-1558005530-a7958896ec60?auto=format&fit=crop&q=80&w=1920', 'hero') }}" 
-            alt="Pengrajin Bali bekerja" 
+        <img
+            src="{{ imageUrl('https://res.cloudinary.com/smart-umkm-bali/image/upload/v1782969647/pengrajin-bali_xvg8lq.webp?auto=format&fit=crop&q=80&w=1920', 'hero') }}"
+            alt="Pengrajin Bali bekerja"
             class="w-full h-full object-cover"
             loading="lazy"
         >
@@ -320,14 +311,14 @@
     <div class="max-w-4xl mx-auto px-6 text-center reveal" x-data x-intersect.once="$el.classList.add('revealed')">
         <!-- Quote Mark -->
         <svg class="w-16 h-16 mx-auto text-prada/40 mb-10" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-        
+
         <blockquote class="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white italic leading-snug mb-10">
             Saya belajar menenun sejak usia delapan tahun dari nenek saya. Setiap helai benang adalah doa dan harapan.
         </blockquote>
-        
+
         <div class="flex flex-col items-center gap-3">
             <div class="w-16 h-16 rounded-full bg-surface-container overflow-hidden border-2 border-prada/30">
-                <img src="{{ imageUrl('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=800', 'medium') }}" alt="Ni Wayan Suartini" class="w-full h-full object-cover" loading="lazy">
+                <img src="{{ imageUrl('https://res.cloudinary.com/smart-umkm-bali/image/upload/v1782970997/penenun-bali_hsgxc0.webp?auto=format&fit=crop&q=80&w=800', 'medium') }}" alt="Ni Wayan Suartini" class="w-full h-full object-cover" loading="lazy">
             </div>
             <div>
                 <p class="text-white font-semibold text-body-md">Ni Wayan Suartini</p>
@@ -404,8 +395,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($latestArticles as $index => $article)
-                <a 
-                    href="{{ route('blog.show', $article->slug) }}" 
+                <a
+                    href="{{ route('blog.show', $article->slug) }}"
                     class="group reveal reveal-delay-{{ $index + 1 }}"
                     x-data x-intersect.once="$el.classList.add('revealed')"
                 >

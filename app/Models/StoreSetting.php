@@ -12,11 +12,18 @@ class StoreSetting extends Model
     protected $fillable = [
         'store_id',
         'logo_url',
+        'logo_public_id',
         'banner_url',
+        'banner_public_id',
         'operational_hours',
         'social_links',
         'theme_config',
     ];
+
+    protected static function booted(): void
+    {
+        static::observe(\App\Observers\StoreSettingObserver::class);
+    }
 
     protected $casts = [
         'operational_hours' => 'array',
